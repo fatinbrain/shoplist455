@@ -26,11 +26,11 @@ void Shoplist::clear() {
 String Shoplist::toString() const {
 	String sBuff = "";
 
-	sBuff += ";";
 	for(int i = 0; i < items_.size(); i++){
 		sBuff += items_[i];
 		sBuff += ",";
 	}
+
 	if(sBuff.length() > 0){
 		sBuff[sBuff.length()-1] = '|';
 	}
@@ -51,30 +51,7 @@ void Shoplist::parse(const String strToParse) {
 
 	this->clear();
 
-	String itemsString;
-	if(str.find(";") == String::npos){
-		itemsString = str;
-	}else{
-		itemsString = str.substr(str.find(";") + 1, str.length() - str.find(";") - 1);
-	}
-
-//	maMessageBox("itemsstirng::", itemsString.c_str());
-	Vector<String> items = splitString(itemsString, ',');
-	//printf("!!![%s]:%d\n", itemsString.c_str(), items.size());
-
-	String sliBuff;
-	for(int i = 0; i < items.size(); i++){
-//		printf("***%d[%s]\n", i , items[i].c_str());
-//		sliBuff.parse(items[i]);
-		sliBuff = items[i];
-		items_.add(sliBuff);
-//		if(i == 0){
-//			String s;
-//			s = "itemtoparse:" +items[i] + "\n";
-//			s += "parseditem:" + sliBuff.toString();
-////			maMessageBox("item0stringtoparse::", s.c_str());
-//		}
-	}
+	items_ = splitString(strToParse, ',');
 }
 
 

@@ -3,7 +3,7 @@
 
 //#include "Lang.h"
 #include "tools/Styler.h"
-//#include "UIAssist.h"
+#include "tools/UIAssist.h"
 #include "datastructs/Shoplist.h"
 #include "tools/StorageWorks.h"
 //#include "InShopShoplist.h"
@@ -12,7 +12,7 @@
 using Shoplist455::Shoplist;
 using namespace NativeUI;
 
-namespace shoplist455{
+namespace Shoplist455{
 
 static const String STR_LISTNAME = "";
 static const String STORE_INSHOP_TOBUY = "tobuy";

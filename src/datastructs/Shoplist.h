@@ -3,7 +3,6 @@
 #ifndef SHOPLIST_H_
 #define SHOPLIST_H_
 
-//#include "String.h"
 #include "tools/Tools.h"
 #include <MAUtil/String.h>
 #include <MAUtil/Vector.h>

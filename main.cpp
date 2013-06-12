@@ -3,7 +3,7 @@
 
 using namespace MAUtil;
 using namespace NativeUI;
-using shoplist455::ScreenMain;
+using Shoplist455::ScreenMain;
 
 class NativeUIMoblet : public Moblet
 {

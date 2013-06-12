@@ -1,11 +1,14 @@
 #include "ScreenMain.h"
 
-using namespace shoplist455;
+#include "datastructs/Shoplist.h"
+#include "tools/Convert.h"
+
+using namespace Shoplist455;
 
 ScreenMain::ScreenMain(Screen* parent) :
 		parent_(parent) {
-//	scrEditShoplist = new ScreenEditShoplist(this);
-	scrInShop = new ScreenInShop(this);
+	scrEditShoplist = new ScreenEditShoplist(this);
+	screenInShop = new ScreenInShop(this);
 
 	createUI();
 }
@@ -25,7 +28,7 @@ void ScreenMain::createUI() {
 	lMain->fillSpaceVertically();
 
 	String sBuff = "";
-	sBuff += "..::shoplist455::..\nv0.2\n";
+	sBuff += "..::shoplist455::..\nv0.8\n";
 	sBuff += "[init2]";
 	Label* lb = new Label(sBuff.c_str());
 	lb->fillSpaceHorizontally();
@@ -69,10 +72,17 @@ void ScreenMain::createUI() {
 
 void ScreenMain::buttonClicked(Widget* button) {
 	if (button == btnLists) {
-//		scrEditShoplist->show();
+		scrEditShoplist->show();
 	} else if (button == btnInShop) {
 //		scrInShop->updateData();
-		scrInShop->show();
+
+		Shoplist455::Shoplist s;
+		s.parse("a, bb,  z, dfef/ \, milken");
+//		int i = s.getSize();
+//		maMessageBox("parse", Convert::toString(i).c_str());
+//		maMessageBox("parse", s.toString().c_str());
+		screenInShop->setShoplist(s);
+		screenInShop->show();
 	} else if (button == btnExit) {
 		maExit(0);
 	}

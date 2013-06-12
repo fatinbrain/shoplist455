@@ -8,7 +8,7 @@
 </filter>
 </criteria>
 <properties>
-<property key="android:package.name" value="by.fatinbrain.app_shoplist455"/>
+<property key="android:package.name" value="by.INx2.app_shoplist455"/>
 <property key="build.prefs:additional.include.paths/Release" value="src"/>
 <property key="build.prefs:additional.libraries" value="MAUtil.lib,nativeui.lib"/>
 <property key="build.prefs:additional.libraries/Debug" value="MAUtilD.lib,nativeuiD.lib"/>

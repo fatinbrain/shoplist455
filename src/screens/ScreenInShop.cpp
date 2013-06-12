@@ -1,6 +1,6 @@
 #include "ScreenInShop.h"
 
-using namespace shoplist455;
+using namespace Shoplist455;
 
 ScreenInShop* transInShop;
 
@@ -26,7 +26,7 @@ void ScreenInShop::hide() {
 
 void ScreenInShop::createUI() {
 	lMain = new VerticalLayout();
-//	HorizontalLayout* lTop = new HorizontalLayout();
+	HorizontalLayout* lTop = new HorizontalLayout();
 	btnAccept = new Button();
 	btnAccept->addButtonListener(this);
 	lbMain = new Label(/*t_(TS_INSHOP_CAP)*/"inshop");
@@ -34,7 +34,7 @@ void ScreenInShop::createUI() {
 	btnDecline->addButtonListener(this);
 	VerticalLayout* lContent = new VerticalLayout();
 
-//	setupTopPanel(lMain, lTop, btnAccept, lbMain, btnDecline, lContent);
+	setupTopPanel(lMain, lTop, btnAccept, lbMain, btnDecline, lContent);
 	Styler::setlayoutPaddings1(lContent, 0);
 
 	HorizontalLayout* lInfo = new HorizontalLayout();
@@ -67,10 +67,14 @@ void ScreenInShop::createUI() {
 
 void ScreenInShop::setShoplist(Shoplist shoplist) {
 	shoplist_ = shoplist;
+	maMessageBox("shoplist count", Convert::toString(shoplist_.getSize()).c_str());
+	shoplistToBuy_ = shoplist;
 	shoplistChanged();
 }
 
 void ScreenInShop::shoplistChanged() {
+	renderShoplist();
+	updateProgressBar();
 }
 
 void ScreenInShop::readDataFromDevice() {
@@ -80,10 +84,7 @@ void ScreenInShop::readDataFromDevice() {
 	StorageWorks sw(STORE_INSHOP_ACTIVE);
 	String strListAcitve = sw.read();
 	if(strListAcitve.length() > 0){
-//		maMessageBox("!list to parse!", strListAcitve.c_str());
 		shoplist_.parse(strListAcitve);
-//		maMessageBox("!parsed list!", shoplist_.toString().c_str());
-//		setNameLabel(shoplist_.getName());
 	}
 
 	shoplistToBuy_.clear();
@@ -93,15 +94,13 @@ void ScreenInShop::readDataFromDevice() {
 		shoplistToBuy_.parse(listToBuy);
 	}
 
-//	maMessageBox("readdata", shoplistToBuy_.toString().c_str());
-
 	updateProgressBar();
 }
 
 void ScreenInShop::setNameLabel(String ListName) {
 	String sBuff = STR_LISTNAME;
 	if(ListName.length() == 0){
-		sBuff += "*"/* + t_(TS_INSHOP_NOACTIVE) + "*"*/;
+		sBuff += "*** In Shop ***"/* + t_(TS_INSHOP_NOACTIVE) + "*"*/;
 	}else{
 		sBuff += ListName;
 	}
@@ -180,9 +179,7 @@ void ScreenInShop::renderShoplist() {
 		lItem->addChild(lbNum);
 
 		sBuff = "";
-		sBuff += shoplistToBuy_.getItem(i)/*.type*/;
-//		sBuff += shoplistToBuy_.getItem(i).type.length() > 0 ? ":" : "";
-//		sBuff += shoplistToBuy_.getItem(i).name;
+		sBuff += shoplistToBuy_.getItem(i);
 
 		Label* l = new Label(sBuff.c_str());
 		l->fillSpaceHorizontally();

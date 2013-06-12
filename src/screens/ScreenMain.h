@@ -2,16 +2,15 @@
 #define SCREENMAIN_H_
 
 #include "screens/ScreenInShop.h"
-//#include "ScreenEditShoplist.h"
+#include "screens/ScreenEditShoplist.h"
 #include "tools/Styler.h"
-//#include "Lang.h"
 #include <NativeUI/Widgets.h>
 #include <MAUtil/String.h>
 
 using namespace NativeUI;
 using namespace MAUtil;
 
-namespace shoplist455{
+namespace Shoplist455{
 
 class ScreenMain:
 	public Screen, public ButtonListener{
@@ -23,8 +22,8 @@ public:
 
 private:
 	Screen* parent_;
-//	ScreenEditShoplist* scrEditShoplist;
-	ScreenInShop* scrInShop;
+	ScreenEditShoplist* scrEditShoplist;
+	ScreenInShop* screenInShop;
 
 	VerticalLayout* lMain;
 	Label* lbMain;
