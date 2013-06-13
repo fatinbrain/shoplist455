@@ -8,6 +8,7 @@
 #include "tools/StorageWorks.h"
 //#include "InShopShoplist.h"
 #include <NativeUI/Widgets.h>
+#include "common.h"
 
 using Shoplist455::Shoplist;
 using namespace NativeUI;
@@ -15,8 +16,7 @@ using namespace NativeUI;
 namespace Shoplist455{
 
 static const String STR_LISTNAME = "";
-static const String STORE_INSHOP_TOBUY = "tobuy";
-static const String STORE_INSHOP_ACTIVE = "active";
+
 
 class ScreenInShop:public Screen, public ButtonListener,public ListViewListener {
 public:
@@ -48,7 +48,7 @@ private:
 	void readDataFromDevice();
 	void removeDataFromDevice();
 	void renderShoplist();
-	void setNameLabel(String ListName);
+//	void setNameLabel(String ListName);
 	void shoplistChanged();
 	void updateProgressBar();
 	void writeDataToDevice();

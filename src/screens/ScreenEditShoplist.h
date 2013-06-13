@@ -6,13 +6,14 @@
 //#include "ScreenPopulateShoplist.h"
 #include "tools/Styler.h"
 #include "tools/UIAssist.h"
+#include "tools/StorageWorks.h"
+#include "common.h"
 
 #include <NativeUI/Widgets.h>
 #include <MAUtil/String.h>
 
 using namespace NativeUI;
 using namespace MAUtil;
-//using namespace Shoplist455;
 
 namespace Shoplist455{
 
@@ -59,6 +60,7 @@ private:
 	void updateShoplistInfo();
 	void updateDictionary();
 	void renderShoplist();
+	void writeActivationShoplistDataToDevice();
 
 	virtual void buttonClicked(Widget* button);
 	virtual void editBoxReturn(EditBox* editBox);

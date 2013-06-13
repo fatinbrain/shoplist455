@@ -24,6 +24,9 @@ void Shoplist::clear() {
 }
 
 String Shoplist::toString() const {
+
+	if(items_.size() == 0) return "";
+
 	String sBuff = "";
 
 	for(int i = 0; i < items_.size(); i++){
@@ -31,10 +34,13 @@ String Shoplist::toString() const {
 		sBuff += ",";
 	}
 
-	if(sBuff.length() > 0){
-		sBuff[sBuff.length()-1] = '|';
-	}
+	//sBuff = sBuff.substr(0, sBuff.length() - 1);
+	sBuff += "|";
+//	if(sBuff.length() > 0){
+//		sBuff[sBuff.length()-1] = '|';
+//	}
 
+//	maMessageBox("shoplist2text:", sBuff.c_str());
 	return sBuff;
 }
 
@@ -45,13 +51,18 @@ void Shoplist::parse(const String strToParse) {
 		return;
 	}
 
-	if(str[str.length() - 1] == '|'){
-		str = str.substr(0, str.length() - 1);
-	}
+//	if(str[str.length() - 1] == '|'){
+//		str = str.substr(0, str.length() - 2);
+//	}
 
 	this->clear();
 
 	items_ = splitString(strToParse, ',');
+
+
+	if(items_[items_.size() -1].find("|") != String::npos){
+		items_.remove(items_.size() - 1);
+	}
 }
 
 

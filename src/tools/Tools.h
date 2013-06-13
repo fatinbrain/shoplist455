@@ -5,6 +5,7 @@
 
 #include <MAUtil/String.h>
 #include <MAUtil/Vector.h>
+#include <mactype.h>
 
 using namespace MAUtil;
 

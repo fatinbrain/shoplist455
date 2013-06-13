@@ -29,7 +29,7 @@ void ScreenInShop::createUI() {
 	HorizontalLayout* lTop = new HorizontalLayout();
 	btnAccept = new Button();
 	btnAccept->addButtonListener(this);
-	lbMain = new Label(/*t_(TS_INSHOP_CAP)*/"inshop");
+	lbMain = new Label(/*t_(TS_INSHOP_CAP)*/"In Shop");
 	btnDecline = new Button();
 	btnDecline->addButtonListener(this);
 	VerticalLayout* lContent = new VerticalLayout();
@@ -67,7 +67,7 @@ void ScreenInShop::createUI() {
 
 void ScreenInShop::setShoplist(Shoplist shoplist) {
 	shoplist_ = shoplist;
-	maMessageBox("shoplist count", Convert::toString(shoplist_.getSize()).c_str());
+//	maMessageBox("shoplist count", Convert::toString(shoplist_.getSize()).c_str());
 	shoplistToBuy_ = shoplist;
 	shoplistChanged();
 }
@@ -79,7 +79,6 @@ void ScreenInShop::shoplistChanged() {
 
 void ScreenInShop::readDataFromDevice() {
 	shoplist_.clear();
-	setNameLabel("");
 
 	StorageWorks sw(STORE_INSHOP_ACTIVE);
 	String strListAcitve = sw.read();
@@ -90,21 +89,14 @@ void ScreenInShop::readDataFromDevice() {
 	shoplistToBuy_.clear();
 	StorageWorks sw2(STORE_INSHOP_TOBUY);
 	String listToBuy = sw2.read();
+
+//	maMessageBox("string to parse", listToBuy.c_str());
+
 	if(listToBuy.length() > 0){
 		shoplistToBuy_.parse(listToBuy);
 	}
 
 	updateProgressBar();
-}
-
-void ScreenInShop::setNameLabel(String ListName) {
-	String sBuff = STR_LISTNAME;
-	if(ListName.length() == 0){
-		sBuff += "*** In Shop ***"/* + t_(TS_INSHOP_NOACTIVE) + "*"*/;
-	}else{
-		sBuff += ListName;
-	}
-	lbMain->setText(sBuff.c_str());
 }
 
 void ScreenInShop::updateData() {

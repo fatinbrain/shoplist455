@@ -10,7 +10,10 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
+#define PROG_VER "v0.17"
+
 namespace Shoplist455{
+
 
 class ScreenMain:
 	public Screen, public ButtonListener{

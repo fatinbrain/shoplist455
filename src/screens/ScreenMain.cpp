@@ -28,7 +28,8 @@ void ScreenMain::createUI() {
 	lMain->fillSpaceVertically();
 
 	String sBuff = "";
-	sBuff += "..::shoplist455::..\nv0.8\n";
+	sBuff += "..::shoplist455::..\n";
+	sBuff += PROG_VER;
 	sBuff += "[init2]";
 	Label* lb = new Label(sBuff.c_str());
 	lb->fillSpaceHorizontally();
@@ -42,7 +43,6 @@ void ScreenMain::createUI() {
 	Styler::setlayoutPaddings1(lMain, Styler::szPaddingNormal);
 
 	btnLists = new Button();
-//	btnLists->setText(/*"Lists"*/t_(TS_MAINMENU_LISTS));
 	btnLists->setText("List");
 	btnLists->setFontSize(Styler::szfButtonBig);
 	btnLists->fillSpaceHorizontally();
@@ -50,7 +50,6 @@ void ScreenMain::createUI() {
 	lMenu->addChild(btnLists);
 
 	btnInShop = new Button();
-//	btnInShop->setText(t_(TS_MAINMENU_INSHOP)/*"InShop"*/);
 	btnInShop->setText("InShop");
 	btnInShop->setFontSize(Styler::szfButtonBig);
 	btnInShop->fillSpaceHorizontally();
@@ -58,7 +57,6 @@ void ScreenMain::createUI() {
 	lMenu->addChild(btnInShop);
 
 	btnExit = new Button();
-//	btnExit->setText(t_(TS_MAINMENU_EXIT)/*"Exit"*/);
 	btnExit->setText("Exit");
 	btnExit->setFontSize(Styler::szfButtonBig);
 	btnExit->fillSpaceHorizontally();
@@ -72,16 +70,13 @@ void ScreenMain::createUI() {
 
 void ScreenMain::buttonClicked(Widget* button) {
 	if (button == btnLists) {
+		Shoplist455::Shoplist s;
+		s.parse("dfef, milken, zoo, kickass,   bass boss");
+
+		scrEditShoplist->setShoplist(s);
 		scrEditShoplist->show();
 	} else if (button == btnInShop) {
-//		scrInShop->updateData();
-
-		Shoplist455::Shoplist s;
-		s.parse("a, bb,  z, dfef/ \, milken");
-//		int i = s.getSize();
-//		maMessageBox("parse", Convert::toString(i).c_str());
-//		maMessageBox("parse", s.toString().c_str());
-		screenInShop->setShoplist(s);
+		screenInShop->updateData();
 		screenInShop->show();
 	} else if (button == btnExit) {
 		maExit(0);
