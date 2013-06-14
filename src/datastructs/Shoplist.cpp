@@ -25,7 +25,7 @@ void Shoplist::clear() {
 
 String Shoplist::toString() const {
 
-	if(items_.size() == 0) return "";
+	if(items_.size() == 0) return "|";
 
 	String sBuff = "";
 

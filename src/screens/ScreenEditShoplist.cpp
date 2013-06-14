@@ -12,6 +12,7 @@ ScreenEditShoplist::ScreenEditShoplist
 //	scrPopulateShoplist->setCallback(callbackShoplistPopulate);
 	createUI();
 //	renderShoplist();
+	Environment::getEnvironment().addKeyListener(this);
 }
 
 ScreenEditShoplist::~ScreenEditShoplist() {
@@ -27,6 +28,11 @@ void ScreenEditShoplist::hide() {
 void ScreenEditShoplist::createUI() {
 
 	lMain = new VerticalLayout();
+
+	addOptionsMenuItem("Clear list");
+	addOptionsMenuItem("Export list");
+	addOptionsMenuItem("Import list");
+	addScreenListener(this);
 
 		///top panel
 	HorizontalLayout* lTop = new HorizontalLayout();
@@ -47,10 +53,10 @@ void ScreenEditShoplist::createUI() {
 	lbListItemsCount->setTextHorizontalAlignment(MAW_ALIGNMENT_LEFT);
 	lContent->addChild(lbListItemsCount);
 
-	Label* lbcItems = new Label("Shoplist items:");
-	lbcItems->fillSpaceHorizontally();
-	lbcItems->setFontSize(Styler::szf18);
-	lContent->addChild(lbcItems);
+//	Label* lbcItems = new Label("Shoplist items:");
+//	lbcItems->fillSpaceHorizontally();
+//	lbcItems->setFontSize(Styler::szf18);
+//	lContent->addChild(lbcItems);
 
 	lvShoplistItems = new ListView();
 	lvShoplistItems->fillSpaceHorizontally();
@@ -176,4 +182,33 @@ void ScreenEditShoplist::writeActivationShoplistDataToDevice() {
 
 	StorageWorks sw(STORE_INSHOP_TOBUY);
 	sw.write(slBuff.toString());
+}
+
+void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
+		int index) {
+	switch (index) {
+		case 0:
+			shoplist_.clear();
+			renderShoplist();
+			updateShoplistInfo();
+			break;
+		case 1:
+			maMessageBox("act", "export");
+			break;
+		case 2:
+			maMessageBox("act", "import");
+			break;
+		default:
+			break;
+	}
+}
+
+void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
+		int nativeCode) {
+	if (MAK_BACK == keyCode || MAK_0 == keyCode)
+	{
+		if(parent_){
+			parent_->show();
+		}
+	}
 }

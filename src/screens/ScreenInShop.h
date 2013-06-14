@@ -18,7 +18,11 @@ namespace Shoplist455{
 static const String STR_LISTNAME = "";
 
 
-class ScreenInShop:public Screen, public ButtonListener,public ListViewListener {
+class ScreenInShop:
+	public Screen,
+	public ButtonListener,
+	public ListViewListener,
+	public KeyListener{
 public:
 	ScreenInShop(Screen* parent = NULL);
 	~ScreenInShop();
@@ -55,6 +59,7 @@ private:
 
 	virtual void buttonClicked(Widget* button);
 	virtual void listViewItemClicked(ListView* listView, int index);
+	virtual void keyPressEvent(int keyCode, int nativeCode);
 };
 
 }

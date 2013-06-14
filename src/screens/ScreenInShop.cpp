@@ -12,6 +12,8 @@ ScreenInShop::ScreenInShop(Screen* parent):parent_(parent) {
 	readDataFromDevice();
 	renderShoplist();
 	updateProgressBar();
+
+	Environment::getEnvironment().addKeyListener(this);
 }
 
 ScreenInShop::~ScreenInShop() {
@@ -189,4 +191,10 @@ void ScreenInShop::listViewItemClicked(ListView* listView, int index) {
 	lvToBuy->removeChild(lvToBuy->getChild(index));
 	updateProgressBar();
 	writeDataToDevice();
+}
+
+void Shoplist455::ScreenInShop::keyPressEvent(int keyCode, int nativeCode) {
+	if(parent_){
+		parent_->show();
+	}
 }

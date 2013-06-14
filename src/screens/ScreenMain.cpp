@@ -11,6 +11,8 @@ ScreenMain::ScreenMain(Screen* parent) :
 	screenInShop = new ScreenInShop(this);
 
 	createUI();
+
+	Environment::getEnvironment().addKeyListener(this);
 }
 
 ScreenMain::~ScreenMain() {
@@ -80,5 +82,14 @@ void ScreenMain::buttonClicked(Widget* button) {
 		screenInShop->show();
 	} else if (button == btnExit) {
 		maExit(0);
+	}
+}
+
+void Shoplist455::ScreenMain::keyPressEvent(int keyCode, int nativeCode) {
+	if (MAK_BACK == keyCode || MAK_0 == keyCode)
+	{
+//		if(parent_){
+//			parent_->show();
+//		}
 	}
 }

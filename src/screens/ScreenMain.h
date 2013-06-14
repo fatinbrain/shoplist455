@@ -10,13 +10,13 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.17"
+#define PROG_VER "v0.20"
 
 namespace Shoplist455{
 
 
 class ScreenMain:
-	public Screen, public ButtonListener{
+	public Screen, public ButtonListener, public KeyListener{
 public:
 	ScreenMain(Screen* parent = NULL);
 	~ScreenMain();
@@ -39,7 +39,7 @@ private:
 	void createUI();
 
 	virtual void buttonClicked(Widget* button);
-
+	virtual void keyPressEvent(int keyCode, int nativeCode);
 };
 
 }

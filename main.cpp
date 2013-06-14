@@ -20,11 +20,11 @@ public:
 
 	void keyPressEvent(int keyCode, int nativeCode)
 	{
-		if (MAK_BACK == keyCode || MAK_0 == keyCode)
-		{
-			// Call close to exit the application.
-			close();
-		}
+//		if (MAK_BACK == keyCode || MAK_0 == keyCode)
+//		{
+//			// Call close to exit the application.
+//			close();
+//		}
 	}
 
 private:

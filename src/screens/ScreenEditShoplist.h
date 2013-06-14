@@ -22,7 +22,9 @@ static const String STR_LIST_COUNT = "Shoplist items count: ";
 class ScreenEditShoplist: public Screen,
 		public ButtonListener,
 		public EditBoxListener,
-		public ListViewListener {
+		public ListViewListener,
+		public ScreenListener,
+		public KeyListener{
 public:
 	ScreenEditShoplist(/*Shoplist455::Dictionary dictionary,
 			Shoplist455::Shoplist shoplist, */Screen* parent = NULL);
@@ -58,13 +60,16 @@ private:
 
 	void createUI();
 	void updateShoplistInfo();
-	void updateDictionary();
+//	void updateDictionary();
 	void renderShoplist();
 	void writeActivationShoplistDataToDevice();
 
 	virtual void buttonClicked(Widget* button);
 	virtual void editBoxReturn(EditBox* editBox);
 	virtual void listViewItemClicked(ListView* listView, int index);
+
+	virtual void optionsMenuItemSelected(Screen* screen, int index);
+	virtual void keyPressEvent(int keyCode, int nativeCode);
 
 //	friend void callbackShoplistPopulate(Shoplist455::Dictionary dictionary,
 //			Shoplist455::Shoplist shoplist);
