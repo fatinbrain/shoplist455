@@ -6,11 +6,12 @@
 #include "tools/Styler.h"
 #include <NativeUI/Widgets.h>
 #include <MAUtil/String.h>
+#include <MAUtil/Moblet.h>
 
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.20"
+#define PROG_VER "v0.30"
 
 namespace Shoplist455{
 
@@ -18,13 +19,13 @@ namespace Shoplist455{
 class ScreenMain:
 	public Screen, public ButtonListener, public KeyListener{
 public:
-	ScreenMain(Screen* parent = NULL);
+	ScreenMain(Moblet* parent = NULL);
 	~ScreenMain();
 
-	void hide();
+//	void hide();
 
 private:
-	Screen* parent_;
+	Moblet* parent_;
 	ScreenEditShoplist* scrEditShoplist;
 	ScreenInShop* screenInShop;
 
@@ -40,6 +41,8 @@ private:
 
 	virtual void buttonClicked(Widget* button);
 	virtual void keyPressEvent(int keyCode, int nativeCode);
+
+//	bool acceptExit;
 };
 
 }

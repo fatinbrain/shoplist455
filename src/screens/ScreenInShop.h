@@ -1,16 +1,18 @@
 #ifndef SCREENINSHOP_H_
 #define SCREENINSHOP_H_
 
-//#include "Lang.h"
+//#include "screens/ScreenMain.h"
 #include "tools/Styler.h"
 #include "tools/UIAssist.h"
 #include "datastructs/Shoplist.h"
 #include "tools/StorageWorks.h"
-//#include "InShopShoplist.h"
-#include <NativeUI/Widgets.h>
 #include "common.h"
 
+#include <NativeUI/Widgets.h>
+
+
 using Shoplist455::Shoplist;
+//using Shoplist455::ScreenMain;
 using namespace NativeUI;
 
 namespace Shoplist455{
@@ -23,11 +25,13 @@ class ScreenInShop:
 	public ButtonListener,
 	public ListViewListener,
 	public KeyListener{
+
 public:
 	ScreenInShop(Screen* parent = NULL);
 	~ScreenInShop();
 
 	void hide();
+	void activate();
 	void setShoplist(Shoplist shoplist);
 	void updateData();
 
@@ -53,6 +57,7 @@ private:
 	void removeDataFromDevice();
 	void renderShoplist();
 //	void setNameLabel(String ListName);
+
 	void shoplistChanged();
 	void updateProgressBar();
 	void writeDataToDevice();

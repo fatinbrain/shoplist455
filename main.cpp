@@ -10,7 +10,7 @@ class NativeUIMoblet : public Moblet
 public:
 	NativeUIMoblet()
 	{
-		ScreenMain* screenMain = new ScreenMain();
+		ScreenMain* screenMain = new ScreenMain(this);
 		screenMain->show();
 	}
 

@@ -23,14 +23,16 @@ class ScreenEditShoplist: public Screen,
 		public ButtonListener,
 		public EditBoxListener,
 		public ListViewListener,
-		public ScreenListener,
-		public KeyListener{
+		public KeyListener,
+		public ScreenListener{
+
 public:
 	ScreenEditShoplist(/*Shoplist455::Dictionary dictionary,
 			Shoplist455::Shoplist shoplist, */Screen* parent = NULL);
 	~ScreenEditShoplist();
 
 	void hide();
+	void activate();
 	void setShoplist(Shoplist455::Shoplist shoplist);
 //	void setDictionary(Shoplist455::Dictionary dictionary);
 	void resetEditboxes();
@@ -38,6 +40,8 @@ public:
 //	void setCallback(
 //			void (*callback)(Shoplist455::Dictionary dictionary,
 //					Shoplist455::Shoplist shoplist));
+
+//	bool acceptExit;
 
 private:
 	Screen* parent_;
@@ -59,6 +63,7 @@ private:
 	ListView* lvShoplistItems;
 
 	void createUI();
+
 	void updateShoplistInfo();
 //	void updateDictionary();
 	void renderShoplist();

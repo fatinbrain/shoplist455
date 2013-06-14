@@ -12,8 +12,6 @@ ScreenInShop::ScreenInShop(Screen* parent):parent_(parent) {
 	readDataFromDevice();
 	renderShoplist();
 	updateProgressBar();
-
-	Environment::getEnvironment().addKeyListener(this);
 }
 
 ScreenInShop::~ScreenInShop() {
@@ -21,6 +19,8 @@ ScreenInShop::~ScreenInShop() {
 
 
 void ScreenInShop::hide() {
+	Environment::getEnvironment().removeKeyListener(this);
+
 	if(parent_){
 		parent_->show();
 	}
@@ -115,6 +115,8 @@ void ScreenInShop::removeDataFromDevice() {
 }
 
 void ScreenInShop::buttonClicked(Widget* button) {
+	Environment::getEnvironment().removeKeyListener(this);
+
 	if(button == btnAccept){
 		if(shoplistToBuy_.getSize() == 0){
 			readDataFromDevice();
@@ -193,8 +195,16 @@ void ScreenInShop::listViewItemClicked(ListView* listView, int index) {
 	writeDataToDevice();
 }
 
+void Shoplist455::ScreenInShop::activate() {
+	Environment::getEnvironment().addKeyListener(this);
+
+	this->show();
+}
+
 void Shoplist455::ScreenInShop::keyPressEvent(int keyCode, int nativeCode) {
-	if(parent_){
-		parent_->show();
+	if(keyCode == MAK_BACK){
+		if(parent_){
+			parent_->show();
+		}
 	}
 }

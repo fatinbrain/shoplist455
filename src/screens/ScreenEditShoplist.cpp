@@ -12,7 +12,7 @@ ScreenEditShoplist::ScreenEditShoplist
 //	scrPopulateShoplist->setCallback(callbackShoplistPopulate);
 	createUI();
 //	renderShoplist();
-	Environment::getEnvironment().addKeyListener(this);
+//	acceptExit = true;
 }
 
 ScreenEditShoplist::~ScreenEditShoplist() {
@@ -20,6 +20,9 @@ ScreenEditShoplist::~ScreenEditShoplist() {
 
 
 void ScreenEditShoplist::hide() {
+
+	Environment::getEnvironment().removeKeyListener(this);
+
 	if(parent_){
 		parent_->show();
 	}
@@ -77,6 +80,10 @@ void ScreenEditShoplist::createUI() {
 }
 
 void ScreenEditShoplist::buttonClicked(Widget* button) {
+	Environment::getEnvironment().removeKeyListener(this);
+
+//	acceptExit = false;
+
 	if(button == btnAccept){
 		parent_->show();
 		writeActivationShoplistDataToDevice();
@@ -203,9 +210,18 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 	}
 }
 
+void Shoplist455::ScreenEditShoplist::activate() {
+	Environment::getEnvironment().addKeyListener(this);
+	this->show();
+}
+
 void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
 		int nativeCode) {
-	if (MAK_BACK == keyCode || MAK_0 == keyCode)
+//	acceptExit = false;
+
+//	maMessageBox("key", "inner");
+
+	if (MAK_BACK == keyCode)
 	{
 		if(parent_){
 			parent_->show();
