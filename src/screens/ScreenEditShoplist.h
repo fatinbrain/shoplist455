@@ -2,6 +2,7 @@
 #define SCREENEDITSHOPLIST_H_
 
 #include "datastructs/Shoplist.h"
+#include "ScreenShoplistExport.h"
 //#include "Dictionary.h"
 //#include "ScreenPopulateShoplist.h"
 #include "tools/Styler.h"
@@ -61,6 +62,8 @@ private:
 	Label* lbListItemsCount;
 	Button* btnPopulateShoplist;
 	ListView* lvShoplistItems;
+
+	ScreenShoplistExport* screenShoplistExport;
 
 	void createUI();
 

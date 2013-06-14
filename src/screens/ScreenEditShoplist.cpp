@@ -200,7 +200,12 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 			updateShoplistInfo();
 			break;
 		case 1:
-			maMessageBox("act", "export");
+//			maMessageBox("act", "export");
+			if(!screenShoplistExport){
+				screenShoplistExport = new ScreenShoplistExport(this);
+			}
+			screenShoplistExport->setText(shoplist_.toString());
+			screenShoplistExport->show();
 			break;
 		case 2:
 			maMessageBox("act", "import");
