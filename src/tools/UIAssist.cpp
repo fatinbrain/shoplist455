@@ -3,32 +3,46 @@
 #include "UIAssist.h"
 
 void setupTopPanel(VerticalLayout* lMain, HorizontalLayout* lTop,
-		Button* btnAccept, Label* lbMain, Button* btnDecline,
-		VerticalLayout* lContent) {
+		Button* btnAccept = NULL, Label* lbMain = NULL, Button* btnDecline = NULL,
+		VerticalLayout* lContent = NULL) {
 
-	lMain->fillSpaceHorizontally();
-	lMain->fillSpaceVertically();
-	lMain->setBackgroundColor(0x333333);
+	if(lMain != NULL){
+		lMain->fillSpaceHorizontally();
+		lMain->fillSpaceVertically();
+		lMain->setBackgroundColor(0x333333);
+	}else{
+		return;
+	}
 
-	///top panel
-	lTop->setChildVerticalAlignment(MAW_ALIGNMENT_CENTER);
-	lTop->setScrollable(true);
-	lTop->setBackgroundColor(0x555555);
+	if(lTop != NULL){
+		lTop->setChildVerticalAlignment(MAW_ALIGNMENT_CENTER);
+		lTop->setScrollable(true);
+		lTop->setBackgroundColor(0x555555);
+	}else{
+		return;
+	}
 
-	btnAccept->setText("<<");
-	btnAccept->setFontSize(Styler::szfTopPanelButton);
-	btnAccept->setBackgroundColor(0x55aa55);
-	lTop->addChild(btnAccept);
+	if(btnAccept != NULL){
+		btnAccept->setText("<<");
+		btnAccept->setFontSize(Styler::szfTopPanelButton);
+		btnAccept->setBackgroundColor(0x55aa55);
+		lTop->addChild(btnAccept);
+	}
 
-	lbMain->setFontSize(Styler::szfTopPanelLabel);
-	lbMain->setTextHorizontalAlignment(MAW_ALIGNMENT_CENTER);
-	lbMain->fillSpaceHorizontally();
-	lTop->addChild(lbMain);
+	if(lbMain != NULL){
+		lbMain->setFontSize(Styler::szfTopPanelLabel);
+		lbMain->setTextHorizontalAlignment(MAW_ALIGNMENT_CENTER);
+		lbMain->fillSpaceHorizontally();
+		lTop->addChild(lbMain);
+	}
 
-	btnDecline->setText(" X ");
-	btnDecline->setFontSize(Styler::szfTopPanelButton);
-	btnDecline->setBackgroundColor(0xaa5555);
-	lTop->addChild(btnDecline);
+	if(btnDecline != NULL){
+		btnDecline->setText(" X ");
+		btnDecline->setFontSize(Styler::szfTopPanelButton);
+		btnDecline->setBackgroundColor(0xaa5555);
+		lTop->addChild(btnDecline);
+	}
+
 
 	lMain->addChild(lTop);
 

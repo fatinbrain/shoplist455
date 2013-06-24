@@ -33,7 +33,7 @@ void ScreenMain::createUI() {
 	String sBuff = "";
 	sBuff += "..::shoplist455::..\n";
 	sBuff += PROG_VER;
-	sBuff += "[init2]";
+	//sBuff += "[init2]";
 	Label* lb = new Label(sBuff.c_str());
 	lb->fillSpaceHorizontally();
 	lb->setFontSize(Styler::szf16);

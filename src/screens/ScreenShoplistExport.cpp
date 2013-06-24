@@ -1,0 +1,54 @@
+#include "ScreenShoplistExport.h"
+
+ScreenShoplistExport::ScreenShoplistExport(Screen* parent):parent_(parent) {
+	createUI();
+}
+
+ScreenShoplistExport::~ScreenShoplistExport() {
+}
+
+
+void ScreenShoplistExport::hide() {
+	if(parent_){
+		parent_->show();
+	}
+}
+
+void ScreenShoplistExport::createUI() {
+	lMain = new VerticalLayout();
+	HorizontalLayout* lTop = new HorizontalLayout();
+	btnAccept = new Button();
+	btnAccept->addButtonListener(this);
+	lbMain = new Label("Shoplist export");
+//	btnDecline = new Button();
+//	btnDecline->addButtonListener(this);
+	VerticalLayout* lContent = new VerticalLayout();
+
+	setupTopPanel(lMain, lTop, btnAccept, lbMain, /*btnDecline*/NULL, lContent);
+
+	Label* lbHelp = new Label("\n1.copy contents\n2.transmit to partner\n3.be happy\n");
+	lbHelp->fillSpaceHorizontally();
+	lbHelp->wrapContentHorizontally();
+	lbHelp->setTextHorizontalAlignment(MAW_ALIGNMENT_LEFT);
+	lbHelp->setFontSize(Styler::szf18);
+	lContent->addChild(lbHelp);
+
+	ebShoplistText = new EditBox();
+	ebShoplistText->setWidth(200);
+	ebShoplistText->fillSpaceHorizontally();
+	ebShoplistText->wrapContentHorizontally();
+	lContent->addChild(ebShoplistText);
+
+	lMain->addChild(lContent);
+
+	setMainWidget(lMain);
+}
+
+void ScreenShoplistExport::setText(const String textToSet) {
+	ebShoplistText->setText(textToSet.c_str());
+}
+
+void ScreenShoplistExport::buttonClicked(Widget* button) {
+	ebShoplistText->setText("");
+	parent_->show();
+}

@@ -56,11 +56,6 @@ void ScreenEditShoplist::createUI() {
 	lbListItemsCount->setTextHorizontalAlignment(MAW_ALIGNMENT_LEFT);
 	lContent->addChild(lbListItemsCount);
 
-//	Label* lbcItems = new Label("Shoplist items:");
-//	lbcItems->fillSpaceHorizontally();
-//	lbcItems->setFontSize(Styler::szf18);
-//	lContent->addChild(lbcItems);
-
 	lvShoplistItems = new ListView();
 	lvShoplistItems->fillSpaceHorizontally();
 	lvShoplistItems->fillSpaceVertically();
@@ -82,49 +77,22 @@ void ScreenEditShoplist::createUI() {
 void ScreenEditShoplist::buttonClicked(Widget* button) {
 	Environment::getEnvironment().removeKeyListener(this);
 
-//	acceptExit = false;
-
 	if(button == btnAccept){
 		parent_->show();
 		writeActivationShoplistDataToDevice();
 	}else if(button == btnDecline){
 		parent_->show();
 	}
-
-//	if(button == btnAccept){
-//		if(ebShoplistName->getText().length() == 0){
-//			shoplist_.setName("nonamelist");
-//		}else{
-//			shoplist_.setName(ebShoplistName->getText());
-//		}
-//		dictionary_.incrementItemsUsageByShoplist(shoplist_);
-////			maMessageBox("dictionary after new list", dictionary_.toStringFull().c_str());
-//		callbackDone_(dictionary_, shoplist_);
-//		parent_->show();
-//	}else if(button == btnDecline){
-//		parent_->show();
-//	}else if(button == btnPopulateShoplist){
-//		shoplist_.setName(ebShoplistName->getText());
-//		scrPopulateShoplist->setShoplist(shoplist_);
-//		scrPopulateShoplist->show();
-//	}
 }
 
 void ScreenEditShoplist::editBoxReturn(EditBox* editBox) {
 }
-
-//void ScreenEditShoplist::setCallback(
-//		void (*callback)(Shoplist455::Dictionary dictionary,
-//				Shoplist455::Shoplist shoplist)) {
-//	callbackDone_ = callback;
-//}
 
 void ScreenEditShoplist::updateShoplistInfo() {
 	String sBuff;
 	sBuff += STR_LIST_COUNT;
 	sBuff += Convert::toString(shoplist_.getSize());
 	lbListItemsCount->setText(sBuff.c_str());
-//	ebShoplistName->setText(shoplist_.getName());
 }
 
 void ScreenEditShoplist::setShoplist(Shoplist455::Shoplist shoplist) {
@@ -132,15 +100,6 @@ void ScreenEditShoplist::setShoplist(Shoplist455::Shoplist shoplist) {
 	updateShoplistInfo();
 	renderShoplist();
 }
-
-//void ScreenEditShoplist::setDictionary(Shoplist455::Dictionary dictionary) {
-//	dictionary_ = dictionary;
-//	updateDictionary();
-//}
-//
-//void ScreenEditShoplist::updateDictionary() {
-//	scrPopulateShoplist->setDataStructs(dictionary_, shoplist_);
-//}
 
 void ScreenEditShoplist::resetEditboxes() {
 	ebShoplistName->setEnabled(false);
@@ -174,14 +133,6 @@ void ScreenEditShoplist::listViewItemClicked(ListView* listView, int index) {
 	updateShoplistInfo();
 }
 
-//void callbackShoplistPopulate(
-//		Shoplist455::Dictionary dictionary, Shoplist455::Shoplist shoplist) {
-//	transScreenEditShoplist->dictionary_ = dictionary;
-//	transScreenEditShoplist->shoplist_ = shoplist;
-//	transScreenEditShoplist->updateShoplistInfo();
-//	transScreenEditShoplist->renderShoplist();
-//}
-
 void ScreenEditShoplist::writeActivationShoplistDataToDevice() {
 	StorageWorks sw2(STORE_INSHOP_ACTIVE);
 	Shoplist slBuff = shoplist_;
@@ -200,7 +151,6 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 			updateShoplistInfo();
 			break;
 		case 1:
-//			maMessageBox("act", "export");
 			if(!screenShoplistExport){
 				screenShoplistExport = new ScreenShoplistExport(this);
 			}

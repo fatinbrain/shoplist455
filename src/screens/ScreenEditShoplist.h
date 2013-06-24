@@ -68,7 +68,6 @@ private:
 	void createUI();
 
 	void updateShoplistInfo();
-//	void updateDictionary();
 	void renderShoplist();
 	void writeActivationShoplistDataToDevice();
 
