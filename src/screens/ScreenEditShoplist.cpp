@@ -80,8 +80,13 @@ void ScreenEditShoplist::buttonClicked(Widget* button) {
 	if(button == btnAccept){
 		parent_->show();
 		writeActivationShoplistDataToDevice();
+
 	}else if(button == btnDecline){
 		parent_->show();
+
+	}else if(button == btnPopulateShoplist){
+		maMessageBox("future step", "willbe populated list");
+
 	}
 }
 

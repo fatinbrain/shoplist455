@@ -11,7 +11,7 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.34"
+#define PROG_VER "v0.38"
 
 namespace Shoplist455{
 
@@ -22,7 +22,6 @@ public:
 	ScreenMain(Moblet* parent = NULL);
 	~ScreenMain();
 
-//	void hide();
 
 private:
 	Moblet* parent_;
@@ -41,8 +40,6 @@ private:
 
 	virtual void buttonClicked(Widget* button);
 	virtual void keyPressEvent(int keyCode, int nativeCode);
-
-//	bool acceptExit;
 };
 
 }

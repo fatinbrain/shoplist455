@@ -7,23 +7,14 @@ using namespace Shoplist455;
 
 ScreenMain::ScreenMain(Moblet* parent) :
 		parent_(parent) {
-	scrEditShoplist = new ScreenEditShoplist(this);
-	screenInShop = new ScreenInShop(this);
 
 	createUI();
 
 	Environment::getEnvironment().addKeyListener(this);
-//	acceptExit = true;
 }
 
 ScreenMain::~ScreenMain() {
 }
-
-//void ScreenMain::hide() {
-//	if (parent_) {
-//		parent_->show();
-//	}
-//}
 
 void ScreenMain::createUI() {
 	lMain = new VerticalLayout();
@@ -33,7 +24,6 @@ void ScreenMain::createUI() {
 	String sBuff = "";
 	sBuff += "..::shoplist455::..\n";
 	sBuff += PROG_VER;
-	//sBuff += "[init2]";
 	Label* lb = new Label(sBuff.c_str());
 	lb->fillSpaceHorizontally();
 	lb->setFontSize(Styler::szf16);
@@ -78,11 +68,21 @@ void ScreenMain::buttonClicked(Widget* button) {
 		Shoplist455::Shoplist s;
 		s.parse("dfef, milken, zoo, kickass,   bass boss");
 
+		if(scrEditShoplist == NULL){
+			scrEditShoplist = new ScreenEditShoplist(this);
+		}
+
 		scrEditShoplist->setShoplist(s);
 		scrEditShoplist->activate();
+
 	} else if (button == btnInShop) {
+		if(screenInShop == NULL){
+			screenInShop = new ScreenInShop(this);
+		}
+
 		screenInShop->updateData();
 		screenInShop->activate();
+
 	} else if (button == btnExit) {
 		maExit(0);
 	}
@@ -90,8 +90,6 @@ void ScreenMain::buttonClicked(Widget* button) {
 
 
 void Shoplist455::ScreenMain::keyPressEvent(int keyCode, int nativeCode) {
-//	acceptExit = scrEditShoplist->acceptExit;
-
 	if (MAK_BACK == keyCode)
 	{
 //		maMessageBox("kye", "exti");
