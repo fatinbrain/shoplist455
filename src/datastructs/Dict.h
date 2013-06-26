@@ -5,14 +5,15 @@
 
 #include <conprint.h>
 #include <MAUtil/String.h>
-#include "tools.h"
+#include "tools/Tools.h"
+#include "tools/Convert.h"
+
 //#include <MAUtil/Vector.h>
 #include <MAUtil/collection_common.h>
 
-#include "Convert.h"
-
-
 using namespace MAUtil;
+
+namespace Shoplist455{
 
 typedef Vector<Pair<String, int> > vp_si_t;
 
@@ -35,6 +36,6 @@ private:
 	vp_si_t items_;
 };
 
-
+}
 
 #endif /* DICT_H_ */

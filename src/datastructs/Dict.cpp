@@ -2,6 +2,9 @@
 
 #include "Dict.h"
 
+using namespace Shoplist455;
+
+
 Dict::Dict() {
 }
 

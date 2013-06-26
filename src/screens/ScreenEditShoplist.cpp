@@ -83,8 +83,11 @@ void ScreenEditShoplist::buttonClicked(Widget* button) {
 		parent_->show();
 
 	}else if(button == btnPopulateShoplist){
-		maMessageBox("future step", "willbe populated list");
+		if(!screenPopulateShoplist){
+			screenPopulateShoplist = new ScreenPopulateShoplist(this);
+		}
 
+		screenPopulateShoplist->show();
 	}
 }
 

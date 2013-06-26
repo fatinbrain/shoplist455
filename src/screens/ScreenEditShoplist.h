@@ -4,6 +4,7 @@
 #include "datastructs/Shoplist.h"
 #include "ScreenShoplistExport.h"
 #include "ScreenShoplistImport.h"
+#include "ScreenPopulateShoplist.h"
 #include "tools/Styler.h"
 #include "tools/UIAssist.h"
 #include "tools/StorageWorks.h"
@@ -50,6 +51,7 @@ private:
 
 	ScreenShoplistExport* screenShoplistExport;
 	ScreenShoplistImport* screenShoplistImport;
+	ScreenPopulateShoplist* screenPopulateShoplist;
 
 
 	void createUI();
