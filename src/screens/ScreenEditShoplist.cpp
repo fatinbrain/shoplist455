@@ -7,20 +7,18 @@ ScreenEditShoplist* transScreenEditShoplist;
 ScreenEditShoplist::ScreenEditShoplist
 	(Screen* parent):
 	parent_(parent){
-//	transScreenEditShoplist = this;
-//	scrPopulateShoplist = new ScreenPopulateShoplist(dictionary_, shoplist_, this);
-//	scrPopulateShoplist->setCallback(callbackShoplistPopulate);
+
+	transScreenEditShoplist = this;
+
 	createUI();
-//	renderShoplist();
-//	acceptExit = true;
 }
 
 ScreenEditShoplist::~ScreenEditShoplist() {
+	Environment::getEnvironment().removeKeyListener(this);
 }
 
 
 void ScreenEditShoplist::hide() {
-
 	Environment::getEnvironment().removeKeyListener(this);
 
 	if(parent_){
@@ -155,6 +153,7 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 			renderShoplist();
 			updateShoplistInfo();
 			break;
+
 		case 1:
 			if(!screenShoplistExport){
 				screenShoplistExport = new ScreenShoplistExport(this);
@@ -162,9 +161,15 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 			screenShoplistExport->setText(shoplist_.toString());
 			screenShoplistExport->show();
 			break;
+
 		case 2:
-			maMessageBox("act", "import");
+			if(!screenShoplistImport){
+				screenShoplistImport = new ScreenShoplistImport(this);
+			}
+			screenShoplistImport->setCallback(Shoplist455::callbacker);
+			screenShoplistImport->show();
 			break;
+
 		default:
 			break;
 	}
@@ -175,16 +180,24 @@ void Shoplist455::ScreenEditShoplist::activate() {
 	this->show();
 }
 
+//void Shoplist455::ScreenEditShoplist::callbacker(
+//		Shoplist455::Shoplist shoplist) {
+//	maMessageBox("callback", shoplist.toString().c_str());
+//}
+
 void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
 		int nativeCode) {
-//	acceptExit = false;
-
-//	maMessageBox("key", "inner");
-
 	if (MAK_BACK == keyCode)
 	{
 		if(parent_){
 			parent_->show();
 		}
 	}
+}
+
+void Shoplist455::callbacker(
+		Shoplist455::Shoplist shoplist) {
+//	maMessageBox("callback", shoplist.toString().c_str());
+	transScreenEditShoplist->shoplist_ = shoplist;
+	transScreenEditShoplist->renderShoplist();
 }

@@ -11,7 +11,7 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.38"
+#define PROG_VER "v0.42"
 
 namespace Shoplist455{
 

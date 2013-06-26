@@ -1,10 +1,10 @@
 #ifndef SCREENSHOPLISTIMPORT_H_
 #define SCREENSHOPLISTIMPORT_H_
 
-#include "Lang.h"
-#include "Shoplist.h"
-#include "Styler.h"
-#include "UIAssist.h"
+
+#include "datastructs/Shoplist.h"
+#include "tools/Styler.h"
+#include "tools/UIAssist.h"
 
 #include <NativeUI/Widgets.h>
 
@@ -15,6 +15,7 @@ using namespace Shoplist455;
 class ScreenShoplistImport: public Screen,
 		public ButtonListener,
 		public EditBoxListener {
+
 public:
 	ScreenShoplistImport(Screen* parent = NULL);
 	~ScreenShoplistImport();

@@ -1,6 +1,7 @@
 #include "ScreenShoplistImport.h"
 
 ScreenShoplistImport::ScreenShoplistImport(Screen* parent):parent_(parent) {
+	callbackDone_ = NULL;
 	createUI();
 }
 
@@ -20,7 +21,7 @@ void ScreenShoplistImport::createUI() {
 	btnAccept = new Button();
 	btnAccept->setVisible(false);
 	btnAccept->addButtonListener(this);
-	lbMain = new Label(t_(TS_PARSE_CAPTION));
+	lbMain = new Label("Shoplist import");
 	btnDecline = new Button();
 	btnDecline->addButtonListener(this);
 	VerticalLayout* lContent = new VerticalLayout();
@@ -33,19 +34,19 @@ void ScreenShoplistImport::createUI() {
 	lContent->addChild(ebParseFrom);
 
 	btnParse = new Button();
-	btnParse->setText(t_(TS_PARSE_PARSE));
+	btnParse->setText("Parse list");
 	btnParse->fillSpaceHorizontally();
 	btnParse->setFontSize(Styler::szf18);
 	btnParse->setEnabled(false);
 	btnParse->addButtonListener(this);
 	lContent->addChild(btnParse);
 
-	lbtParse = new Label(t_(TS_PARSE_PARSEDLISTS));
+	lbtParse = new Label("\n1.paste\n2.press parse\n3.press accept button\n\n");
 	lbtParse->fillSpaceHorizontally();
 	lbtParse->setFontSize(Styler::szf20);
 	lContent->addChild(lbtParse);
 
-	lbParsedShoplist = new Label(t_(TS_PARSE_NOTPARSED));
+	lbParsedShoplist = new Label("NOTPARSED");
 	lbParsedShoplist->fillSpaceHorizontally();
 	lbParsedShoplist->setFontSize(Styler::szf18);
 	lContent->addChild(lbParsedShoplist);
@@ -57,13 +58,18 @@ void ScreenShoplistImport::createUI() {
 
 void ScreenShoplistImport::buttonClicked(Widget* button) {
 	if(button == btnAccept){
-		shoplist_.setName(t_(TS_PARSE_PARSED));
-		callbackDone_(shoplist_);
+		if(callbackDone_){
+			callbackDone_(shoplist_);
+		}else{
+			maMessageBox("Warning", "[screenShoplistImport]\nCallback function does not set.");
+		}
 		ebParseFrom->setText("");
 		shoplist_.clear();
 		parent_->show();
+
 	}else if(button == btnDecline){
 		parent_->show();
+
 	}else if(button == btnParse){
 		btnAccept->setVisible(true);
 		ebParseFrom->hideKeyboard();
@@ -72,30 +78,35 @@ void ScreenShoplistImport::buttonClicked(Widget* button) {
 	}
 }
 
+
 void ScreenShoplistImport::editBoxTextChanged(EditBox* editBox,
 		const MAUtil::String& text) {
 	if(ebParseFrom->getText().length() > 0){
 		btnParse->setEnabled(true);
+
 	}else{
 		btnParse->setEnabled(false);
 	}
 }
 
+
 void ScreenShoplistImport::setCallback(
 		void (*callback)(Shoplist455::Shoplist shoplist)) {
-	callbackDone_ = callback;
+	if(callback){
+		callbackDone_ = callback;
+	}
 }
+
 
 void ScreenShoplistImport::parseShoplist(String strToParse) {
 	shoplist_.parse(strToParse);
-	if(shoplist_.getName() == ""){
-		shoplist_.setName(t_(TS_NONAME));
-	}
 }
+
 
 void ScreenShoplistImport::renderShoplist() {
 	lbParsedShoplist->setText(shoplist_.toString());
 }
+
 
 void ScreenShoplistImport::editBoxReturn(EditBox* editBox) {
 }

@@ -3,8 +3,7 @@
 
 #include "datastructs/Shoplist.h"
 #include "ScreenShoplistExport.h"
-//#include "Dictionary.h"
-//#include "ScreenPopulateShoplist.h"
+#include "ScreenShoplistImport.h"
 #include "tools/Styler.h"
 #include "tools/UIAssist.h"
 #include "tools/StorageWorks.h"
@@ -28,31 +27,17 @@ class ScreenEditShoplist: public Screen,
 		public ScreenListener{
 
 public:
-	ScreenEditShoplist(/*Shoplist455::Dictionary dictionary,
-			Shoplist455::Shoplist shoplist, */Screen* parent = NULL);
+	ScreenEditShoplist(Screen* parent = NULL);
 	~ScreenEditShoplist();
 
 	void hide();
 	void activate();
 	void setShoplist(Shoplist455::Shoplist shoplist);
-//	void setDictionary(Shoplist455::Dictionary dictionary);
 	void resetEditboxes();
-
-//	void setCallback(
-//			void (*callback)(Shoplist455::Dictionary dictionary,
-//					Shoplist455::Shoplist shoplist));
-
-//	bool acceptExit;
 
 private:
 	Screen* parent_;
-//	ScreenPopulateShoplist* scrPopulateShoplist;
-
 	Shoplist455::Shoplist shoplist_;
-//	Shoplist455::Dictionary dictionary_;
-//
-//	void (*callbackDone_)(Shoplist455::Dictionary dictionary,
-//			Shoplist455::Shoplist shoplist);
 
 	VerticalLayout* lMain;
 	Label* lbMain;
@@ -64,12 +49,15 @@ private:
 	ListView* lvShoplistItems;
 
 	ScreenShoplistExport* screenShoplistExport;
+	ScreenShoplistImport* screenShoplistImport;
+
 
 	void createUI();
 
 	void updateShoplistInfo();
 	void renderShoplist();
 	void writeActivationShoplistDataToDevice();
+	void callbacker(Shoplist455::Shoplist shoplist);
 
 	virtual void buttonClicked(Widget* button);
 	virtual void editBoxReturn(EditBox* editBox);
@@ -78,8 +66,7 @@ private:
 	virtual void optionsMenuItemSelected(Screen* screen, int index);
 	virtual void keyPressEvent(int keyCode, int nativeCode);
 
-//	friend void callbackShoplistPopulate(Shoplist455::Dictionary dictionary,
-//			Shoplist455::Shoplist shoplist);
+	friend void callbacker(Shoplist455::Shoplist);
 };
 
 }
