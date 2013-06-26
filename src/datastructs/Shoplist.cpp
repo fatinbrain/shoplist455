@@ -15,7 +15,7 @@ void Shoplist::removeAt(const int index) {
 }
 
 void Shoplist::add(const String item) {
-	items_.add(item);
+	items_.add(simplifyString(item));
 }
 
 
@@ -30,7 +30,7 @@ String Shoplist::toString() const {
 	String sBuff = "";
 
 	for(int i = 0; i < items_.size(); i++){
-		sBuff += items_[i];
+		sBuff += simplifyString(items_[i]);
 		sBuff += ",";
 	}
 

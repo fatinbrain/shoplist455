@@ -7,6 +7,6 @@
 using MAUtil::String;
 
 static const String STORE_INSHOP_TOBUY = "tobuy";
-static const String STORE_INSHOP_ACTIVE = "active";
+static const String STORE_SHOPLIST_ACTIVE = "active";
 
 #endif

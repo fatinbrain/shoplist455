@@ -137,7 +137,7 @@ void ScreenEditShoplist::listViewItemClicked(ListView* listView, int index) {
 }
 
 void ScreenEditShoplist::writeActivationShoplistDataToDevice() {
-	StorageWorks sw2(STORE_INSHOP_ACTIVE);
+	StorageWorks sw2(STORE_SHOPLIST_ACTIVE);
 	Shoplist slBuff = shoplist_;
 	sw2.write(slBuff.toString());
 

@@ -37,3 +37,40 @@ Vector<String> splitString(const String s, const char splitter){
 
 	return rez;
 }
+
+String simplifyString(const String s) {
+	String sBuff = s;
+	String sBuff2 = "";
+
+	//sBuff = "simplified";
+	int pos = 0;
+
+	while(pos < sBuff.length() && isspace(sBuff[pos])){
+		pos++;
+	}
+
+	sBuff = sBuff.substr(pos);
+
+	pos = sBuff.length() - 1;
+	while(pos > 0 && isspace(sBuff[pos])){
+		pos--;
+	}
+
+	sBuff = sBuff.substr(0, pos + 1);
+
+	bool skip = false;
+//	pos = 0;
+	for(int i = 0; i < sBuff.length(); i++){
+		if(!isspace(sBuff[i])){
+			skip = false;
+			sBuff2 += sBuff[i];
+		}else{
+			if(!skip){
+				sBuff2 += sBuff[i];
+				skip = true;
+			}
+		}
+	}
+
+	return sBuff2;
+}

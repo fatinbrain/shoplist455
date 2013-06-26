@@ -66,7 +66,12 @@ void ScreenMain::buttonClicked(Widget* button) {
 
 	if (button == btnLists) {
 		Shoplist455::Shoplist s;
-		s.parse("dfef, milken, zoo, kickass,   bass boss");
+
+		StorageWorks sw(STORE_SHOPLIST_ACTIVE);
+		String strListAcitve = sw.read();
+		if(strListAcitve.length() > 0){
+			s.parse(strListAcitve);
+		}
 
 		if(scrEditShoplist == NULL){
 			scrEditShoplist = new ScreenEditShoplist(this);
@@ -92,10 +97,6 @@ void ScreenMain::buttonClicked(Widget* button) {
 void Shoplist455::ScreenMain::keyPressEvent(int keyCode, int nativeCode) {
 	if (MAK_BACK == keyCode)
 	{
-//		maMessageBox("kye", "exti");
-//		if(acceptExit && parent_){
-//			parent_->close();
-//		}
-//		maMessageBox("key", "scr main");
+		//how to exit?
 	}
 }

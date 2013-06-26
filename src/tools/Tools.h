@@ -1,4 +1,7 @@
 /* Tools.h @30.01.2013 */
+/*
+ * v1.1
+ */
 
 #ifndef TOOLS_H_
 #define TOOLS_H_
@@ -10,6 +13,7 @@
 using namespace MAUtil;
 
 Vector<String> splitString(const String s, const char splitter);
+String simplifyString(const String s);
 
 
 #endif /* TOOLS_H_ */

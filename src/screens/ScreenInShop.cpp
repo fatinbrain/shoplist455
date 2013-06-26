@@ -82,7 +82,7 @@ void ScreenInShop::shoplistChanged() {
 void ScreenInShop::readDataFromDevice() {
 	shoplist_.clear();
 
-	StorageWorks sw(STORE_INSHOP_ACTIVE);
+	StorageWorks sw(STORE_SHOPLIST_ACTIVE);
 	String strListAcitve = sw.read();
 	if(strListAcitve.length() > 0){
 		shoplist_.parse(strListAcitve);
@@ -91,9 +91,6 @@ void ScreenInShop::readDataFromDevice() {
 	shoplistToBuy_.clear();
 	StorageWorks sw2(STORE_INSHOP_TOBUY);
 	String listToBuy = sw2.read();
-
-//	maMessageBox("string to parse", listToBuy.c_str());
-
 	if(listToBuy.length() > 0){
 		shoplistToBuy_.parse(listToBuy);
 	}
@@ -107,7 +104,7 @@ void ScreenInShop::updateData() {
 }
 
 void ScreenInShop::removeDataFromDevice() {
-	StorageWorks sw(STORE_INSHOP_ACTIVE);
+	StorageWorks sw(STORE_SHOPLIST_ACTIVE);
 	sw.rm();
 
 	StorageWorks sw2(STORE_INSHOP_TOBUY);

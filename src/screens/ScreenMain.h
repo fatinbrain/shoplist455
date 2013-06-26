@@ -11,7 +11,7 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.42"
+#define PROG_VER "v0.45"
 
 namespace Shoplist455{
 
@@ -46,3 +46,6 @@ private:
 
 #endif /* SCREENMAIN_H_ */
 
+/*todoz*/
+//todo	BUG	hw back button goto main screen from im/ex screens
+//todo	1,3,2	dictionary stuff
