@@ -131,6 +131,7 @@ void ScreenEditShoplist::renderShoplist() {
 	}
 
 	lvShoplistItems->setEnabled(true);
+	updateShoplistInfo();
 }
 
 void ScreenEditShoplist::listViewItemClicked(ListView* listView, int index) {

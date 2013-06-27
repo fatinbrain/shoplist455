@@ -4,6 +4,7 @@
 #include "tools/Styler.h"
 #include "tools/UIAssist.h"
 #include "tools/Convert.h"
+#include "tools/StorageWorks.h"
 
 #include "datastructs/Shoplist.h"
 #include "datastructs/Dict.h"
@@ -15,6 +16,8 @@ using namespace NativeUI;
 using namespace MAUtil;
 using Shoplist455::Dict;
 
+const String DEFAULT_DICT = "bass,pass,brass";
+const String STORAGE_DICT = "sl455dict";
 
 class ScreenPopulateShoplist: public Screen,
 		public ButtonListener
@@ -24,12 +27,14 @@ public:
 	~ScreenPopulateShoplist();
 
 	void hide();
+	void readDict();
+	void writeDict();
 
 private:
 	Screen* parent_;
-	Shoplist455::Dict Dict_;
-	Shoplist455::Dict DictInit_;
-	Shoplist455::Shoplist shoplist_;
+	Shoplist455::Dict dict_;
+//	Shoplist455::Dict DictInit_;
+//	Shoplist455::Shoplist shoplist_;
 
 	VerticalLayout* lMain;
 	Label* lbMain;

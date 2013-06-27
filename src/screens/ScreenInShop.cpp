@@ -104,8 +104,8 @@ void ScreenInShop::updateData() {
 }
 
 void ScreenInShop::removeDataFromDevice() {
-	StorageWorks sw(STORE_SHOPLIST_ACTIVE);
-	sw.rm();
+//	StorageWorks sw(STORE_SHOPLIST_ACTIVE);
+//	sw.rm();
 
 	StorageWorks sw2(STORE_INSHOP_TOBUY);
 	sw2.rm();

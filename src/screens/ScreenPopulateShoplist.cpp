@@ -6,6 +6,7 @@ ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent):
 	parent_(parent){
 
 	createUI();
+	readDict();
 }
 
 ScreenPopulateShoplist::~ScreenPopulateShoplist() {
@@ -63,6 +64,24 @@ void ScreenPopulateShoplist::createUI() {
 
 	lMain->addChild(lFilter);
 	setMainWidget(lMain);
+}
+
+
+void ScreenPopulateShoplist::readDict() {
+	StorageWorks sw(STORAGE_DICT);
+	String strDict = sw.read();
+	if(strDict.length() > 0){
+		dict_.parse(strDict);
+		maMessageBox("device dict", dict_.toString().c_str());
+	}else{
+		dict_.parse(DEFAULT_DICT);
+		maMessageBox("default dict", dict_.toString().c_str());
+	}
+}
+
+void ScreenPopulateShoplist::writeDict() {
+	StorageWorks sw(STORAGE_DICT);
+	sw.write(dict_.toString());
 }
 
 void ScreenPopulateShoplist::buttonClicked(Widget* button) {
