@@ -39,27 +39,32 @@ Vector<String> splitString(const String s, const char splitter){
 }
 
 String simplifyString(const String s) {
-	String sBuff = s;
-	String sBuff2 = "";
+	WString sBuff = L"";
+	WString sBuff2 = L"";
+	String rez = "";
 
-	//sBuff = "simplified";
+		//transform to widestring
+	for(int i = 0; i < s.length(); i++){
+		sBuff += s[i];
+	}
+
+		//cut space at begin
 	int pos = 0;
-
 	while(pos < sBuff.length() && isspace(sBuff[pos])){
 		pos++;
 	}
-
 	sBuff = sBuff.substr(pos);
 
+		//cut space at end
 	pos = sBuff.length() - 1;
 	while(pos > 0 && isspace(sBuff[pos])){
 		pos--;
 	}
-
 	sBuff = sBuff.substr(0, pos + 1);
 
+
+		//cut space inside
 	bool skip = false;
-//	pos = 0;
 	for(int i = 0; i < sBuff.length(); i++){
 		if(!isspace(sBuff[i])){
 			skip = false;
@@ -72,5 +77,10 @@ String simplifyString(const String s) {
 		}
 	}
 
-	return sBuff2;
+		//transform to string
+	for(int i = 0; i < sBuff.length(); i++){
+		rez += sBuff2[i];
+	}
+
+	return rez;
 }

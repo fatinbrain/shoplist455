@@ -40,7 +40,7 @@ private:
 	Label* lbParsedShoplist;
 
 	void createUI();
-	void parseShoplist(String strToParse);
+//	void parseShoplist(String strToParse);
 	void renderShoplist();
 
 	virtual void buttonClicked(Widget* button);

@@ -73,7 +73,7 @@ void ScreenShoplistImport::buttonClicked(Widget* button) {
 	}else if(button == btnParse){
 		btnAccept->setVisible(true);
 		ebParseFrom->hideKeyboard();
-		parseShoplist(ebParseFrom->getText());
+		shoplist_.parse(ebParseFrom->getText());
 		renderShoplist();
 	}
 }
@@ -98,9 +98,9 @@ void ScreenShoplistImport::setCallback(
 }
 
 
-void ScreenShoplistImport::parseShoplist(String strToParse) {
-	shoplist_.parse(strToParse);
-}
+//void ScreenShoplistImport::parseShoplist(String strToParse) {
+//	shoplist_.parse(strToParse);
+//}
 
 
 void ScreenShoplistImport::renderShoplist() {
