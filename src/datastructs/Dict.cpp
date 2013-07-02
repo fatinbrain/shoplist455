@@ -30,7 +30,7 @@ String Dict::toString() {
 }
 
 void Dict::parse(const String stringToParse) {
-	printf(">parse<\n");
+	//printf(">parse<\n");
 
 	if(stringToParse == "") return;
 
@@ -38,15 +38,19 @@ void Dict::parse(const String stringToParse) {
 	Vector<String> vsBuff;
 	String sBuff;
 
+//	if(stringToParse[stringToParse.length()-1] == ','){
+//		vsItems.remove(vsItems.size() - 1);
+//	}
 
 	for(int i = 0; i < vsItems.size(); i++){
-		printf("%s\n", vsItems[i].c_str());
+//		printf("%s\n", vsItems[i].c_str());
 
 		sBuff = vsItems[i];
 		if(sBuff != ""){
 			vsBuff = splitString(sBuff, ':');
 			if(vsBuff[0] != ""){
 				addItem(simplifyString(vsBuff[0]), Convert::toInt(vsBuff[1]));
+//				maMessageBox(simplifyString(vsBuff[0]).c_str(), vsBuff[1].c_str());
 			}
 		}
 	}
@@ -55,7 +59,9 @@ void Dict::parse(const String stringToParse) {
 void Dict::addItem(const String itemName, const int itemUsage){
 	Pair<String, int> buff(itemName, itemUsage);
 
-	items_.add(buff);
+	if(buff.first != ""){
+		items_.add(buff);
+	}
 }
 
 const int Dict::count() const {
@@ -71,10 +77,113 @@ void Dict::remove(const int index) {
 	items_.remove(index);
 }
 
+void Shoplist455::Dict::addItem(const p_si item) {
+	bool exist = false;
+
+	for(int i = 0; i < items_.size() && !exist; i++){
+		if(items_[i].first == item.first){
+			exist = true;
+		}
+	}
+
+	if(!exist){
+		items_.add(p_si(item.first, item.second));
+	}
+}
+
 void Dict::remove(const String itemName) {
 	for(int i = 0; i < items_.size(); i++){
 		if(items_[i].first == itemName){
 			items_.remove(i);
 		}
 	}
+}
+
+p_si Shoplist455::Dict::getItem(const int index)const {
+	if(index >= 0 && index < items_.size()){
+		return items_[index];
+	}
+
+	return p_si("", -1);
+}
+
+void Shoplist455::Dict::sortDictByUsage() {
+	if(items_.size() < 1) return;
+
+	bool exchanged = true;
+
+	while(exchanged){
+		exchanged = false;
+		for(int i = 0; i < items_.size() - 1; i++){
+			if(items_[i].second < items_[i+1].second){
+				swapItems(items_[i], items_[i+1]);
+				exchanged = true;
+			}
+		}
+	}
+}
+
+void Shoplist455::Dict::sordDictByAlpha() {
+	if(items_.size() < 1) return;
+
+	bool exchanged = true;
+
+	while(exchanged){
+		exchanged = false;
+		for(int i = 0; i < items_.size() - 1; i++){
+			if(items_[i].first > items_[i+1].first){
+				swapItems(items_[i], items_[i+1]);
+				exchanged = true;
+			}
+		}
+	}
+}
+
+void Shoplist455::Dict::filtrateByShoplist(const Shoplist455::Shoplist shoplist) {
+	int shoplistSize = shoplist.getSize();
+	for(int i = 0; i < items_.size(); i++){
+		for(int j = 0; j < shoplistSize; j++){
+			if(shoplist.getItem(j) == items_[i].first){
+				items_.remove(i);
+			}
+		}
+	}
+}
+
+void Shoplist455::Dict::filtrateByItem(const String filterString) {
+	if(filterString == "") return;
+
+	for(int i = 0; i < items_.size(); i++){
+		if(items_[i].first.find(filterString) == String::npos){
+			items_.remove(i);
+		}
+	}
+}
+
+void Shoplist455::Dict::asorbShoplist(const Shoplist455::Shoplist shoplist) {
+	int shoplistSize = shoplist.getSize();
+	bool newItem;
+
+	for(int i = 0; i < shoplistSize; i++){
+		newItem = true;
+
+		for(int j = 0; j < items_.size() && newItem; j++){
+			if(items_[j].first == shoplist.getItem(i)){
+				newItem = false;
+			}
+		}
+
+		if(newItem){
+			items_.add(p_si(shoplist.getItem(i), 1));
+			//maMessageBox("new item:", shoplist.getItem(i).c_str());
+		}
+	}
+}
+
+void Shoplist455::Dict::swapItems(p_si& item1, p_si& item2) {
+	p_si buff;
+
+	buff = item1;
+	item1 = item2;
+	item2 = buff;
 }

@@ -4,6 +4,8 @@
 
 using Shoplist455::Shoplist;
 
+
+
 Shoplist::Shoplist(){
 }
 
@@ -66,7 +68,7 @@ void Shoplist::parse(const String strToParse) {
 }
 
 
-String Shoplist::getItem(const int index) {
+String Shoplist::getItem(const int index)const{
 	return items_[index];
 }
 

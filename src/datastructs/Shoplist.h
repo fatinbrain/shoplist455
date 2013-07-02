@@ -21,13 +21,13 @@ public:
 
 	void removeAt(const int index);
 	void add(const String item);
-	String getItem(const int index);
+	String getItem(const int index) const;
 	int getSize()const;
 	void clear();
 	String toString() const;
 	void parse(const String strToParse);
 
-
+//	static Shoplist empty;
 private:
 	Vector<String> items_;
 };

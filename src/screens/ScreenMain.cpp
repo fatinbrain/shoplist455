@@ -70,7 +70,8 @@ void ScreenMain::buttonClicked(Widget* button) {
 		StorageWorks sw(STORE_SHOPLIST_ACTIVE);
 		String strListAcitve = sw.read();
 		if(strListAcitve.length() > 0){
-			s.parse(strListAcitve);
+			//[orig]s.parse(strListAcitve);
+			s.parse("молоко, творог, сыр, хлеб");
 		}
 
 		if(scrEditShoplist == NULL){

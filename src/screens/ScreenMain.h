@@ -11,7 +11,7 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.53"
+#define PROG_VER "v0.74"
 
 namespace Shoplist455{
 
@@ -48,4 +48,4 @@ private:
 
 /*todoz*/
 //todo	BUG	hw back button goto main screen from im/ex screens
-//todo	1,3,2	dictionary stuff
+//todo	make similar count/size access

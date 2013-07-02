@@ -86,7 +86,7 @@ void ScreenEditShoplist::buttonClicked(Widget* button) {
 		if(!screenPopulateShoplist){
 			screenPopulateShoplist = new ScreenPopulateShoplist(this);
 		}
-
+		screenPopulateShoplist->setShoplist(shoplist_);
 		screenPopulateShoplist->show();
 	}
 }
