@@ -11,7 +11,7 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "v0.74"
+#define PROG_VER "v0.81"
 
 namespace Shoplist455{
 
@@ -42,10 +42,11 @@ private:
 	virtual void keyPressEvent(int keyCode, int nativeCode);
 };
 
+
 }
 
 #endif /* SCREENMAIN_H_ */
 
 /*todoz*/
-//todo	BUG	hw back button goto main screen from im/ex screens
-//todo	make similar count/size access
+//todo	BUG		hw back button goto main screen from im/ex screens
+//todo	STYLE	make similar count/size access

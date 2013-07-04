@@ -16,13 +16,14 @@ using namespace NativeUI;
 using namespace MAUtil;
 using Shoplist455::Dict;
 
-const String DEFAULT_DICT = "мясо,молоко:7,яблоки:113,бананы:23,дет кефир,молоко,творог:100,сметана,чай,хлеб,рыба,";
+const String DEFAULT_DICT = "кефир,д кефир,молоко,д молоко,сметана,сыр,творог,масло,маргарин,подсолнечное,мясо,фарш,кура,рыба,лук,лук репчатый,капуста,огурцы,морковь,горошек,петрушка,кабак,картошка,салат,помидор,чеснок,бананы,яблоки,лимон,хлеб,батон,мука,сдоба,гречка,овес,рис,манка,перловка,пшено,д яблоки,д капуста,чай,шоколад";
 const String STORAGE_DICT = "sl455dict";
 
 class ScreenPopulateShoplist: public Screen,
 		public ButtonListener,
 		public ScreenListener,
-		public EditBoxListener
+		public EditBoxListener,
+		public ListViewListener
 {
 public:
 	ScreenPopulateShoplist(Screen* parent = NULL);
@@ -30,17 +31,24 @@ public:
 
 	void hide();
 	void setShoplist(Shoplist455::Shoplist shoplist);
+	void setCallback(void(*callback)(Shoplist455::Shoplist shoplist));
 
 
 private:
 	Screen* parent_;
-	Shoplist455::Dict dict_;
+	Shoplist455::Dict dictWork_;
+	Shoplist455::Dict dictOrig_;
+	Shoplist455::Dict dUsed_;
+	Shoplist455::Dict dUnused_;
 	Shoplist455::Shoplist shoplist_;
+
+	void (*callbacker)(Shoplist455::Shoplist);
 
 	VerticalLayout* lMain;
 	Label* lbMain;
 	Label* lbDbg;
 
+	VerticalLayout* lFilter;
 	HorizontalLayout* lEdit;
 	Button* btnAccept;
 	Button* btnDecline;
@@ -56,8 +64,11 @@ private:
 
 	void createUI();
 	void readDict();
+	void resetWorkingDict();
 	void writeDict();
 	void renderDict();
+	void colorizeFilter();
+	void buttonAvailbilityCheck();
 
 
 	virtual void buttonClicked(Widget* button);
@@ -66,6 +77,12 @@ private:
 	virtual void editBoxTextChanged(
 	            EditBox* editBox,
 	            const MAUtil::String& text);
+
+	virtual void segmentedListViewItemClicked(
+		ListView* listView,
+		int sectionIndex,
+		int itemIndex);
+
 };
 
 #endif /* SCREENPOPULATESHOPLIST_H_ */

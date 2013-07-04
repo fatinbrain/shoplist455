@@ -5,9 +5,13 @@ using Shoplist455::Dict;
 ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent):
 	parent_(parent){
 
+	callbacker = NULL;
+
 	createUI();
 	readDict();
 	renderDict();
+	colorizeFilter();
+	buttonAvailbilityCheck();
 }
 
 ScreenPopulateShoplist::~ScreenPopulateShoplist() {
@@ -21,8 +25,9 @@ void ScreenPopulateShoplist::hide() {
 
 void ScreenPopulateShoplist::createUI() {
 	addOptionsMenuItem("Drop stat");
-	addOptionsMenuItem("Export dict");
-	addOptionsMenuItem("Import dict");
+//	addOptionsMenuItem("Export dict");
+//	addOptionsMenuItem("Import dict");
+	addScreenListener(this);
 
 	lMain = new VerticalLayout();
 	HorizontalLayout* lTop = new HorizontalLayout();
@@ -36,6 +41,7 @@ void ScreenPopulateShoplist::createUI() {
 
 	lvDict = new ListView(LIST_VIEW_TYPE_SEGMENTED);
 	lvDict->fillSpaceHorizontally();
+	lvDict->addListViewListener(this);
 
 	lvsUsed = new ListViewSection(LIST_VIEW_SECTION_TYPE_SEGMENTED);
 	lvsUsed->setHeaderFontSize(12);
@@ -54,17 +60,16 @@ void ScreenPopulateShoplist::createUI() {
 
 	lMain->addChild(lvDict);
 
-
-	VerticalLayout* lFilter = new VerticalLayout();
+	lFilter = new VerticalLayout();
 	lFilter->setScrollable(true);
 	lFilter->fillSpaceHorizontally();
+	lFilter->setChildVerticalAlignment(MAW_ALIGNMENT_CENTER);
 	lFilter->setBackgroundColor(Styler::clPopoulateEditsBG);
-	lFilter->setPaddingBottom(0);
-	lFilter->setPaddingTop(0);
+	Styler::setlayoutPaddings1(lFilter, 5);
 
 	lFilterCtrls = new HorizontalLayout();
 	lFilterCtrls->fillSpaceHorizontally();
-	lFilterCtrls->setPaddingBottom(0);
+	Styler::setlayoutPaddings1(lFilterCtrls, 0);
 	lFilterCtrls->setChildVerticalAlignment(MAW_ALIGNMENT_CENTER);
 
 	ebFilter = new EditBox();
@@ -91,74 +96,59 @@ void ScreenPopulateShoplist::createUI() {
 
 
 void ScreenPopulateShoplist::readDict() {
-#if 0
 	StorageWorks sw(STORAGE_DICT);
 	String strDict = sw.read();
 
 	if(strDict.length() > 0){
 		strDict = strDict.substr(0, strDict.find("|"));
-		dict_.parse(strDict);
-//		maMessageBox("device dict", dict_.toString().c_str());
+		dictOrig_.parse(strDict);
 	}else{
-//		maMessageBox("initstr", DEFAULT_DICT.c_str());
-		dict_.parse(DEFAULT_DICT);
-//		maMessageBox("default dict", dict_.toString().c_str());
+		dictOrig_.parse(DEFAULT_DICT);
 	}
-#else
-	dict_.parse(DEFAULT_DICT);
-	//maMessageBox("default dict items count", Convert::toString(dict_.count()).c_str());
-#endif
+
+	resetWorkingDict();
 }
 
 void ScreenPopulateShoplist::writeDict() {
 	StorageWorks sw(STORAGE_DICT);
-	String writeBuff = dict_.toString();
+	String writeBuff = dictOrig_.toString();
 	writeBuff += "|";
 	sw.write(writeBuff);
 }
 
 void ScreenPopulateShoplist::renderDict() {
-	Dict dUsed;
-	Dict dUnused;
+	dUsed_.clear();
+	dUnused_.clear();
 
 
-	dict_.asorbShoplist(shoplist_);
-	dict_.filtrateByShoplist(shoplist_);
-	dict_.filtrateByItem(ebFilter->getText());
+	dictOrig_.adsorbShoplist(shoplist_);
+	dictWork_.filtrateByShoplist(shoplist_);
+	dictWork_.filtrateByItem(ebFilter->getText());
 
 		//split dict into used and unused sections
-	for(int i = 0; i < dict_.count(); i++){
-		if(dict_.getItem(i).second > 0){
-			dUsed.addItem(dict_.getItem(i));
+	for(int i = 0; i < dictWork_.count(); i++){
+		if(dictWork_.getItem(i).second > 0){
+			dUsed_.addItem(dictWork_.getItem(i));
 		}else{
-			dUnused.addItem(dict_.getItem(i));
+			dUnused_.addItem(dictWork_.getItem(i));
 		}
 	}
 
-//	String dbg = "us:";
-//	dbg += Convert::toString(dUsed.count());
-//	dbg += " un:";
-//	dbg += Convert::toString(dUnused.count());
-//
-//	maMessageBox("render counts", dbg.c_str());
-
-	dUsed.sortDictByUsage();
-	dUnused.sordDictByAlpha();
+	dUsed_.sortDictByUsage();
+	dUnused_.sordDictByAlpha();
 
 
 		//render used items
-	lvsUsed->setVisible(dUsed.count() > 0);
-//	for(int i = 0; i < lvsUsed->countChildWidgets(); i++){
-//		lvsUsed->removeItem(0);
-//	}
+	lvsUsed->setVisible(dUsed_.count() > 0);
+	lvsUsed->setVisible(false);
 	while(lvsUsed->getChild(0)){
 		lvsUsed->removeItem(0);
 	}
 
-	for(int i = 0; i < dUsed.count(); i++){
+	for(int i = 0; i < dUsed_.count(); i++){
 		lvi = new ListViewItem();
-		String name = dUsed.getItem(i).first;
-		String usage = Convert::toString(dUsed.getItem(i).second);
+		String name = dUsed_.getItem(i).first;
+		String usage = Convert::toString(dUsed_.getItem(i).second);
 
 		HorizontalLayout* lItem = new HorizontalLayout();
 		lItem->fillSpaceHorizontally();
@@ -184,17 +174,14 @@ void ScreenPopulateShoplist::renderDict() {
 	}
 
 		//render unused items
-	lvsUnused->setVisible(dUnused.count() > 0);
+	lvsUnused->setVisible(dUnused_.count() > 0);
 	while(lvsUnused->getChild(0)){
 		lvsUnused->removeItem(0);
 	}
-//	for(int i = 0; i < lvsUnused->countChildWidgets(); i++){
-//		lvsUnused->removeItem(0);
-//	}
 
-	for(int i = 0; i < dUnused.count(); i++){
+	for(int i = 0; i < dUnused_.count(); i++){
 		lvi = new ListViewItem();
-		lvi->setText(dUnused.getItem(i).first.c_str());
+		lvi->setText(dUnused_.getItem(i).first.c_str());
 		lvi->setHeight(17);
 		lvi->setFontSize(15);
 		lvsUnused->addItem(lvi);
@@ -204,32 +191,51 @@ void ScreenPopulateShoplist::renderDict() {
 void ScreenPopulateShoplist::buttonClicked(Widget* button) {
 	if(button == btnAccept){
 		writeDict();
+
+		if(callbacker){
+			callbacker(shoplist_);
+		}
+
 		parent_->show();
+
 	}else if(button == btnDecline){
 		writeDict();
 		parent_->show();
+
 	}else if(button == btnClearFilter){
 		ebFilter->setText("");
+
+	}else if(button == btnAddItem){
+		shoplist_.add(ebFilter->getText());
+		ebFilter->setText("");
+		ebFilter->hideKeyboard();
 	}
 }
 
 void ScreenPopulateShoplist::setShoplist(Shoplist455::Shoplist shoplist) {
 	shoplist_ = shoplist;
+	//readDict();
+	resetWorkingDict();
 	renderDict();
 }
 
 void ScreenPopulateShoplist::optionsMenuItemSelected(Screen* screen,
 		int index) {
-	maMessageBox("in future", "this feature will be available in deep future.");
+
 	switch (index) {
 		case 0:
 			//drop stat
+			dictWork_.dropStat();
+			renderDict();
 			break;
 		case 1:
-			//drop stat
-			break;
+			//export dict
+
 		case 2:
-			//drop stat
+			//import dict
+			maMessageBox("in future", "this feature will be available in deep future.");
+			//debug
+			maMessageBox("current dict", dictWork_.toString().c_str());
 			break;
 		default:
 			break;
@@ -239,7 +245,63 @@ void ScreenPopulateShoplist::optionsMenuItemSelected(Screen* screen,
 void ScreenPopulateShoplist::editBoxReturn(EditBox* editBox) {
 }
 
+void ScreenPopulateShoplist::colorizeFilter() {
+	if(ebFilter->getText() == ""){
+		lFilter->setBackgroundColor(0x333333);
+	}else if(!dictWork_.count()){
+		lFilter->setBackgroundColor(0xaa5555);
+	}else{
+		lFilter->setBackgroundColor(0x55aa55);
+	}
+}
+
+void ScreenPopulateShoplist::buttonAvailbilityCheck() {
+	if(ebFilter->getText() == ""){
+		btnClearFilter->setEnabled(false);
+		btnAddItem->setEnabled(false);
+	}else{
+		btnClearFilter->setEnabled(true);
+		if(dictWork_.count()){
+			btnAddItem->setEnabled(false);
+		}else{
+			btnAddItem->setEnabled(true);
+		}
+	}
+}
+
+void ScreenPopulateShoplist::setCallback(
+		void (*callback)(Shoplist455::Shoplist shoplist)) {
+	callbacker = callback;
+}
+
 void ScreenPopulateShoplist::editBoxTextChanged(EditBox* editBox,
 		const MAUtil::String& text) {
+	lvDict->setEnabled(false);
+	//readDict();
+	resetWorkingDict();
+	renderDict();
+	colorizeFilter();
+	buttonAvailbilityCheck();
+	lvDict->setEnabled(true);
+}
+
+void ScreenPopulateShoplist::resetWorkingDict() {
+	dictWork_ = dictOrig_;
+}
+
+void ScreenPopulateShoplist::segmentedListViewItemClicked(ListView* listView,
+		int sectionIndex, int itemIndex) {
+
+	String itemName = "";
+	if(sectionIndex == 0){
+		itemName = dUsed_.getItem(itemIndex).first;
+		dictOrig_.increaseUsageByName(itemName);
+		shoplist_.add(itemName);
+
+	}else{
+		itemName = dUnused_.getItem(itemIndex).first;
+		dictOrig_.increaseUsageByName(itemName);
+		shoplist_.add(dUnused_.getItem(itemIndex).first);
+	}
 	renderDict();
 }

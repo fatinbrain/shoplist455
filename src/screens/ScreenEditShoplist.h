@@ -59,7 +59,6 @@ private:
 	void updateShoplistInfo();
 	void renderShoplist();
 	void writeActivationShoplistDataToDevice();
-	void callbacker(Shoplist455::Shoplist shoplist);
 
 	virtual void buttonClicked(Widget* button);
 	virtual void editBoxReturn(EditBox* editBox);

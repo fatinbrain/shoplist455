@@ -54,6 +54,9 @@ void ScreenShoplistImport::createUI() {
 	lMain->addChild(lContent);
 
 	setMainWidget(lMain);
+
+	//debug
+	ebParseFrom->setText("молоко, творог, сыр, хлеб");
 }
 
 void ScreenShoplistImport::buttonClicked(Widget* button) {

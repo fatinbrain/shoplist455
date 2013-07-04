@@ -25,7 +25,6 @@ String Dict::toString() {
 		rez += sBuff;
 	}
 
-	//rez[rez.length()-1] = '|';
 	return rez;
 }
 
@@ -38,19 +37,12 @@ void Dict::parse(const String stringToParse) {
 	Vector<String> vsBuff;
 	String sBuff;
 
-//	if(stringToParse[stringToParse.length()-1] == ','){
-//		vsItems.remove(vsItems.size() - 1);
-//	}
-
 	for(int i = 0; i < vsItems.size(); i++){
-//		printf("%s\n", vsItems[i].c_str());
-
 		sBuff = vsItems[i];
 		if(sBuff != ""){
 			vsBuff = splitString(sBuff, ':');
 			if(vsBuff[0] != ""){
 				addItem(simplifyString(vsBuff[0]), Convert::toInt(vsBuff[1]));
-//				maMessageBox(simplifyString(vsBuff[0]).c_str(), vsBuff[1].c_str());
 			}
 		}
 	}
@@ -153,15 +145,17 @@ void Shoplist455::Dict::filtrateByShoplist(const Shoplist455::Shoplist shoplist)
 void Shoplist455::Dict::filtrateByItem(const String filterString) {
 	if(filterString == "") return;
 
-	for(int i = 0; i < items_.size(); i++){
+	for(int i = items_.size() - 1; i != -1; i--){
 		if(items_[i].first.find(filterString) == String::npos){
 			items_.remove(i);
 		}
 	}
 }
 
-void Shoplist455::Dict::asorbShoplist(const Shoplist455::Shoplist shoplist) {
+void Shoplist455::Dict::adsorbShoplist(const Shoplist455::Shoplist shoplist) {
 	int shoplistSize = shoplist.getSize();
+	if(!shoplistSize) return;
+
 	bool newItem;
 
 	for(int i = 0; i < shoplistSize; i++){
@@ -175,7 +169,22 @@ void Shoplist455::Dict::asorbShoplist(const Shoplist455::Shoplist shoplist) {
 
 		if(newItem){
 			items_.add(p_si(shoplist.getItem(i), 1));
-			//maMessageBox("new item:", shoplist.getItem(i).c_str());
+		}
+	}
+}
+
+void Shoplist455::Dict::dropStat() {
+	for(int i = 0; i < items_.size(); i++){
+		items_[i].second = 0;
+	}
+}
+
+void Shoplist455::Dict::increaseUsageByName(const String itemName,
+		const int incrementValue) {
+	for(int i = 0; i < items_.size(); i++){
+		if(items_[i].first == itemName){
+			items_[i].second++;
+			break;
 		}
 	}
 }

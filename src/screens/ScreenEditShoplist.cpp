@@ -85,7 +85,9 @@ void ScreenEditShoplist::buttonClicked(Widget* button) {
 	}else if(button == btnPopulateShoplist){
 		if(!screenPopulateShoplist){
 			screenPopulateShoplist = new ScreenPopulateShoplist(this);
+			screenPopulateShoplist->setCallback(callbacker);
 		}
+
 		screenPopulateShoplist->setShoplist(shoplist_);
 		screenPopulateShoplist->show();
 	}
@@ -184,11 +186,6 @@ void Shoplist455::ScreenEditShoplist::activate() {
 	this->show();
 }
 
-//void Shoplist455::ScreenEditShoplist::callbacker(
-//		Shoplist455::Shoplist shoplist) {
-//	maMessageBox("callback", shoplist.toString().c_str());
-//}
-
 void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
 		int nativeCode) {
 	if (MAK_BACK == keyCode)
@@ -201,7 +198,6 @@ void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
 
 void Shoplist455::callbacker(
 		Shoplist455::Shoplist shoplist) {
-//	maMessageBox("callback", shoplist.toString().c_str());
 	transScreenEditShoplist->shoplist_ = shoplist;
 	transScreenEditShoplist->renderShoplist();
 }

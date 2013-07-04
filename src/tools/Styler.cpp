@@ -19,6 +19,8 @@ int Styler::szf18 = 18;
 int Styler::szf20 = 20;
 int Styler::szf28 = 28;
 
+double Styler::scale = 1.0;
+
 Styler::Styler() {
 	calcConsts();
 }
@@ -32,6 +34,7 @@ void Styler::calcConsts() {
 	double scrY = EXTENT_Y(scrSz);
 	double diagonal = (sqrt(scrX * scrX + scrY * scrY));
 	double scaleFactor = sqrt(diagonal / szNativeDiagonal);
+	scale = scaleFactor;
 //maMessageBox("scale factor", Convert::toString(scaleFactor).c_str());
 
 	szPaddingNormal = static_cast<int>(scaleFactor * szPaddingNormal);
@@ -94,4 +97,6 @@ void Styler::setlayoutPaddings1(Layout* layout, const int all) {
 	}
 }
 
-
+int Styler::normalize(const int sz) {
+	return static_cast<int>(scale * sz);
+}

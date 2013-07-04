@@ -5,8 +5,12 @@
 
 using namespace Shoplist455;
 
+ScreenMain* transmitter;
+
 ScreenMain::ScreenMain(Moblet* parent) :
 		parent_(parent) {
+
+	transmitter = this;
 
 	createUI();
 
@@ -70,8 +74,8 @@ void ScreenMain::buttonClicked(Widget* button) {
 		StorageWorks sw(STORE_SHOPLIST_ACTIVE);
 		String strListAcitve = sw.read();
 		if(strListAcitve.length() > 0){
-			//[orig]s.parse(strListAcitve);
-			s.parse("молоко, творог, сыр, хлеб");
+			s.parse(strListAcitve);
+//			s.parse("молоко, творог, сыр, хлеб");
 		}
 
 		if(scrEditShoplist == NULL){
@@ -101,3 +105,5 @@ void Shoplist455::ScreenMain::keyPressEvent(int keyCode, int nativeCode) {
 		//how to exit?
 	}
 }
+
+

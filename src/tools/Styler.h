@@ -42,6 +42,9 @@ public:
 	static void calcConsts();
 
 private:
+	static double scale;
+
+	static int normalize(const int sz);
 };
 
 

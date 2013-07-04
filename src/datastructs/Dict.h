@@ -9,8 +9,6 @@
 #include "tools/Convert.h"
 #include "datastructs/Shoplist.h"
 
-
-//#include <MAUtil/Vector.h>
 #include <MAUtil/collection_common.h>
 
 using namespace MAUtil;
@@ -40,7 +38,9 @@ public:
 	void sordDictByAlpha();
 	void filtrateByShoplist(const Shoplist455::Shoplist shoplist);
 	void filtrateByItem(const String filterString);
-	void asorbShoplist(const Shoplist455::Shoplist shoplist);
+	void adsorbShoplist(const Shoplist455::Shoplist shoplist);
+	void dropStat();
+	void increaseUsageByName(const String itemName, const int incrementValue = 1);
 
 private:
 	vp_si_t items_;
