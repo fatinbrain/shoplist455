@@ -5,6 +5,14 @@ using Shoplist455::Dict;
 ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent):
 	parent_(parent){
 
+	//dbg
+//	char x[128];
+//	int sz = maFontGetCount();
+//
+//	for (int i = 0; i < sz; i++) {
+//		maFontGetName(i, x, 128);
+//	}
+
 	callbacker = NULL;
 
 	createUI();
@@ -163,9 +171,9 @@ void ScreenPopulateShoplist::renderDict() {
 		Label* lbUsage = new Label();
 		lbUsage->setText(usage);
 		lbUsage->setWidth(Styler::normalize(40));
-		lbUsage->setFont(Styler::fontClockopia);
+		lbUsage->setFont(maFontLoadWithName(Styler::fnClockopia.c_str(), 40));
 		lbUsage->setFontSize(Styler::szf18);
-		lbUsage->setBackgroundColor(0x5555ee);
+		lbUsage->setBackgroundColor(0x5555aa);
 
 		lItem->addChild(lbName);
 		lItem->addChild(lbUsage);
