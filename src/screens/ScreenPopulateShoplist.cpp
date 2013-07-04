@@ -44,13 +44,13 @@ void ScreenPopulateShoplist::createUI() {
 	lvDict->addListViewListener(this);
 
 	lvsUsed = new ListViewSection(LIST_VIEW_SECTION_TYPE_SEGMENTED);
-	lvsUsed->setHeaderFontSize(12);
+	lvsUsed->setHeaderFontSize(Styler::normalize(12));
 	lvsUsed->setFooterFontSize(1);
 	lvsUsed->setHeaderTextHorizontalAlignment(MAW_ALIGNMENT_RIGHT);
 	lvsUsed->setHeaderText("Used items");
 
 	lvsUnused = new ListViewSection(LIST_VIEW_SECTION_TYPE_SEGMENTED);
-	lvsUnused->setHeaderFontSize(12);
+	lvsUnused->setHeaderFontSize(Styler::normalize(12));
 	lvsUnused->setFooterFontSize(1);
 	lvsUnused->setHeaderTextHorizontalAlignment(MAW_ALIGNMENT_RIGHT);
 	lvsUnused->setHeaderText("Unused items");
@@ -86,6 +86,7 @@ void ScreenPopulateShoplist::createUI() {
 	btnClearFilter = new Button();
 	btnClearFilter->setText("  X  ");
 	btnClearFilter->addButtonListener(this);
+	btnClearFilter->setFontSize(Styler::szf18);
 	lFilterCtrls->addChild(btnClearFilter);
 
 	lFilter->addChild(lFilterCtrls);
@@ -154,15 +155,16 @@ void ScreenPopulateShoplist::renderDict() {
 		lItem->fillSpaceHorizontally();
 
 		Label* lbName = new Label();
-		lbName->setFontSize(15);
+		lbName->setFontSize(Styler::szf18);
 		lbName->fillSpaceHorizontally();
 		lbName->setTextHorizontalAlignment(MAW_ALIGNMENT_LEFT);
 		lbName->setText(name);
 
 		Label* lbUsage = new Label();
 		lbUsage->setText(usage);
-		lbUsage->setFontSize(16);
-		lbUsage->setWidth(40);
+		lbUsage->setWidth(Styler::normalize(40));
+		lbUsage->setFont(Styler::fontClockopia);
+		lbUsage->setFontSize(Styler::szf18);
 		lbUsage->setBackgroundColor(0x5555ee);
 
 		lItem->addChild(lbName);
@@ -182,8 +184,7 @@ void ScreenPopulateShoplist::renderDict() {
 	for(int i = 0; i < dUnused_.count(); i++){
 		lvi = new ListViewItem();
 		lvi->setText(dUnused_.getItem(i).first.c_str());
-		lvi->setHeight(17);
-		lvi->setFontSize(15);
+		lvi->setFontSize(Styler::szf18);
 		lvsUnused->addItem(lvi);
 	}
 }

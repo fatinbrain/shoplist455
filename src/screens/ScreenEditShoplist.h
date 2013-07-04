@@ -53,7 +53,6 @@ private:
 	ScreenShoplistImport* screenShoplistImport;
 	ScreenPopulateShoplist* screenPopulateShoplist;
 
-
 	void createUI();
 
 	void updateShoplistInfo();

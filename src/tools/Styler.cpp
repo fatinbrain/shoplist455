@@ -11,8 +11,8 @@ int Styler::clListsLabelGray = 0x555555;
 int Styler::clListsLabelDarkGray = 0x444444;
 
 int Styler::szPaddingNormal = 20;
-int Styler::szfButtonBig = 30;
-int Styler::szfTopPanelButton = 17;
+int Styler::szfButtonBig = 40;
+int Styler::szfTopPanelButton = 20;
 int Styler::szfTopPanelLabel = 20;
 int Styler::szf16 = 16;
 int Styler::szf18 = 18;
@@ -21,8 +21,12 @@ int Styler::szf28 = 28;
 
 double Styler::scale = 1.0;
 
+String Styler::fnClockopia = "Clockopia";
+MAHandle Styler::fontClockopia = 0;
+
 Styler::Styler() {
 	calcConsts();
+	fontInit();
 }
 
 Styler::~Styler() {
@@ -99,4 +103,15 @@ void Styler::setlayoutPaddings1(Layout* layout, const int all) {
 
 int Styler::normalize(const int sz) {
 	return static_cast<int>(scale * sz);
+}
+
+void Styler::fontInit() {
+	char x[128];
+	int sz = maFontGetCount();
+
+	for (int i = 0; i < sz; i++) {
+		maFontGetName(i, x, 128);
+	}
+
+	fontClockopia = maFontLoadWithName(Styler::fnClockopia.c_str(), 40);
 }

@@ -34,17 +34,22 @@ public:
 	static int clListsLabelGray;
 	static int clListsLabelDarkGray;
 
+	static String fnClockopia;
+
 	static void setLayoutPaddings4(Layout* layout, const int top = -1, const int right = -1,
 			const int bottom = -1, const int left = -1);
 	static void setlayoutPaddings2(Layout* layout, const int top_bottom = -1,
 			const int left_right = -1);
 	static void setlayoutPaddings1(Layout* layout, const int all = -1);
-	static void calcConsts();
+	static int normalize(const int sz);
+
+	static MAHandle fontClockopia;
 
 private:
 	static double scale;
 
-	static int normalize(const int sz);
+	static void calcConsts();
+	static void fontInit();
 };
 
 

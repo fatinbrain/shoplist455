@@ -31,7 +31,7 @@ void ScreenInShop::createUI() {
 	HorizontalLayout* lTop = new HorizontalLayout();
 	btnAccept = new Button();
 	btnAccept->addButtonListener(this);
-	lbMain = new Label(/*t_(TS_INSHOP_CAP)*/"In Shop");
+	lbMain = new Label("In Shop");
 	btnDecline = new Button();
 	btnDecline->addButtonListener(this);
 	VerticalLayout* lContent = new VerticalLayout();
@@ -69,7 +69,6 @@ void ScreenInShop::createUI() {
 
 void ScreenInShop::setShoplist(Shoplist shoplist) {
 	shoplist_ = shoplist;
-//	maMessageBox("shoplist count", Convert::toString(shoplist_.getSize()).c_str());
 	shoplistToBuy_ = shoplist;
 	shoplistChanged();
 }
@@ -104,9 +103,6 @@ void ScreenInShop::updateData() {
 }
 
 void ScreenInShop::removeDataFromDevice() {
-//	StorageWorks sw(STORE_SHOPLIST_ACTIVE);
-//	sw.rm();
-
 	StorageWorks sw2(STORE_INSHOP_TOBUY);
 	sw2.rm();
 }

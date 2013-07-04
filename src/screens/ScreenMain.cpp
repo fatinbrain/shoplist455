@@ -28,15 +28,17 @@ void ScreenMain::createUI() {
 	String sBuff = "";
 	sBuff += "..::shoplist455::..\n";
 	sBuff += PROG_VER;
+	sBuff += "\n";
 	Label* lb = new Label(sBuff.c_str());
 	lb->fillSpaceHorizontally();
-	lb->setFontSize(Styler::szf16);
+	lb->setFontSize(Styler::szf18);
 	lb->setTextHorizontalAlignment(MAW_ALIGNMENT_CENTER);
 	lMain->addChild(lb);
 
 	lMenu = new VerticalLayout();
 	lMenu->fillSpaceHorizontally();
 	lMenu->fillSpaceVertically();
+	lMenu->setChildVerticalAlignment(MAW_ALIGNMENT_CENTER);
 	Styler::setlayoutPaddings1(lMain, Styler::szPaddingNormal);
 
 	btnLists = new Button();
@@ -75,7 +77,6 @@ void ScreenMain::buttonClicked(Widget* button) {
 		String strListAcitve = sw.read();
 		if(strListAcitve.length() > 0){
 			s.parse(strListAcitve);
-//			s.parse("молоко, творог, сыр, хлеб");
 		}
 
 		if(scrEditShoplist == NULL){

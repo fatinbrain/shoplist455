@@ -20,8 +20,7 @@ void ScreenShoplistExport::createUI() {
 	btnAccept = new Button();
 	btnAccept->addButtonListener(this);
 	lbMain = new Label("Shoplist export");
-//	btnDecline = new Button();
-//	btnDecline->addButtonListener(this);
+
 	VerticalLayout* lContent = new VerticalLayout();
 
 	setupTopPanel(lMain, lTop, btnAccept, lbMain, /*btnDecline*/NULL, lContent);
@@ -34,7 +33,7 @@ void ScreenShoplistExport::createUI() {
 	lContent->addChild(lbHelp);
 
 	ebShoplistText = new EditBox();
-	ebShoplistText->setWidth(200);
+	ebShoplistText->setWidth(Styler::normalize(200));
 	ebShoplistText->fillSpaceHorizontally();
 	ebShoplistText->wrapContentHorizontally();
 	lContent->addChild(ebShoplistText);
