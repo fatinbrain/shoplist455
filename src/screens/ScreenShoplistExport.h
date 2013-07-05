@@ -11,12 +11,15 @@ using namespace NativeUI;
 using namespace MAUtil;
 
 
-class ScreenShoplistExport:public Screen, public ButtonListener{
+class ScreenShoplistExport:public Screen,
+	public ButtonListener,
+	public KeyListener{
 public:
 	ScreenShoplistExport(Screen* parent = NULL);
 	~ScreenShoplistExport();
 
 	void hide();
+	void activate();
 	void setText(const String textToSet);
 
 private:
@@ -31,6 +34,7 @@ private:
 	void createUI();
 	
 	virtual void buttonClicked(Widget* button);
+	virtual void keyPressEvent(int keyCode, int nativeCode);
 };
 
 

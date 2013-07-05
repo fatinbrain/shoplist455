@@ -14,13 +14,15 @@ using namespace Shoplist455;
 
 class ScreenShoplistImport: public Screen,
 		public ButtonListener,
-		public EditBoxListener {
+		public EditBoxListener,
+		public KeyListener{
 
 public:
 	ScreenShoplistImport(Screen* parent = NULL);
 	~ScreenShoplistImport();
 
 	void hide();
+	void activate();
 	void setCallback(void(*callback)(Shoplist455::Shoplist shoplist));
 
 private:
@@ -47,6 +49,7 @@ private:
 	virtual void editBoxTextChanged(EditBox* editBox,
 			const MAUtil::String& text);
 	virtual void editBoxReturn(EditBox* editBox);
+	virtual void keyPressEvent(int keyCode, int nativeCode);
 };
 
 #endif /* SCREENSHOPLISTIMPORT_H_ */

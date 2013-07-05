@@ -39,7 +39,6 @@ void Styler::calcConsts() {
 	double diagonal = (sqrt(scrX * scrX + scrY * scrY));
 	double scaleFactor = sqrt(diagonal / szNativeDiagonal);
 	scale = scaleFactor;
-//maMessageBox("scale factor", Convert::toString(scaleFactor).c_str());
 
 	szPaddingNormal = static_cast<int>(scaleFactor * szPaddingNormal);
 	szfButtonBig = static_cast<int>(scaleFactor * szfButtonBig);
@@ -49,7 +48,6 @@ void Styler::calcConsts() {
 	szf18 = static_cast<int>(scaleFactor * szf18);
 	szf20 = static_cast<int>(scaleFactor * szf20);
 	szf28 = static_cast<int>(scaleFactor * szf28);
-//maMessageBox("szf20", Convert::toString(szf20).c_str());
 }
 
 void Styler::setLayoutPaddings4(Layout* layout, const int top, const int right, const int bottom,

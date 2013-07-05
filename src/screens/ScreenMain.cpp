@@ -10,6 +10,8 @@ ScreenMain* transmitter;
 ScreenMain::ScreenMain(Moblet* parent) :
 		parent_(parent) {
 
+	Styler s;
+
 	transmitter = this;
 
 	createUI();
@@ -68,7 +70,8 @@ void ScreenMain::createUI() {
 }
 
 void ScreenMain::buttonClicked(Widget* button) {
-//	Environment::getEnvironment().removeKeyListener(this);
+	//Environment::getEnvironment().removeKeyListener(this);
+
 
 	if (button == btnLists) {
 		Shoplist455::Shoplist s;
@@ -103,8 +106,8 @@ void ScreenMain::buttonClicked(Widget* button) {
 void Shoplist455::ScreenMain::keyPressEvent(int keyCode, int nativeCode) {
 	if (MAK_BACK == keyCode)
 	{
-		//how to exit?
+		if(this->isShown()){
+			maExit(0);
+		}
 	}
 }
-
-

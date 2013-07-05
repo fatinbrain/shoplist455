@@ -6,6 +6,10 @@ ScreenShoplistImport::ScreenShoplistImport(Screen* parent):parent_(parent) {
 }
 
 ScreenShoplistImport::~ScreenShoplistImport() {
+	Environment::getEnvironment().removeKeyListener(this);
+	btnAccept->removeButtonListener(this);
+	btnDecline->removeButtonListener(this);
+	btnParse->removeButtonListener(this);
 }
 
 
@@ -102,6 +106,18 @@ void ScreenShoplistImport::renderShoplist() {
 	lbParsedShoplist->setText(shoplist_.toString());
 }
 
+void ScreenShoplistImport::activate() {
+	Environment::getEnvironment().addKeyListener(this);
+	this->show();
+}
 
 void ScreenShoplistImport::editBoxReturn(EditBox* editBox) {
+}
+
+void ScreenShoplistImport::keyPressEvent(int keyCode, int nativeCode) {
+	if(MAK_BACK == keyCode){
+		if(this->isShown()){
+			hide();
+		}
+	}
 }

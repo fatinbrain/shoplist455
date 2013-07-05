@@ -19,7 +19,7 @@ ScreenInShop::~ScreenInShop() {
 
 
 void ScreenInShop::hide() {
-	Environment::getEnvironment().removeKeyListener(this);
+//	Environment::getEnvironment().removeKeyListener(this);
 
 	if(parent_){
 		parent_->show();
@@ -108,7 +108,7 @@ void ScreenInShop::removeDataFromDevice() {
 }
 
 void ScreenInShop::buttonClicked(Widget* button) {
-	Environment::getEnvironment().removeKeyListener(this);
+//	Environment::getEnvironment().removeKeyListener(this);
 
 	if(button == btnAccept){
 		if(shoplistToBuy_.getSize() == 0){
@@ -181,6 +181,7 @@ void ScreenInShop::renderShoplist() {
 	lvToBuy->setEnabled(true);
 }
 
+
 void ScreenInShop::listViewItemClicked(ListView* listView, int index) {
 	shoplistToBuy_.removeAt(index);
 	lvToBuy->removeChild(lvToBuy->getChild(index));
@@ -188,16 +189,18 @@ void ScreenInShop::listViewItemClicked(ListView* listView, int index) {
 	writeDataToDevice();
 }
 
+
 void Shoplist455::ScreenInShop::activate() {
 	Environment::getEnvironment().addKeyListener(this);
 
 	this->show();
 }
 
+
 void Shoplist455::ScreenInShop::keyPressEvent(int keyCode, int nativeCode) {
 	if(keyCode == MAK_BACK){
-		if(parent_){
-			parent_->show();
+		if(this->isShown()){
+			hide();
 		}
 	}
 }

@@ -105,11 +105,23 @@ void Shoplist455::Dict::sortDictByUsage() {
 	bool exchanged = true;
 
 	while(exchanged){
+
 		exchanged = false;
+
 		for(int i = 0; i < items_.size() - 1; i++){
+
 			if(items_[i].second < items_[i+1].second){
+					//swap items if second item has bigger usage
 				swapItems(items_[i], items_[i+1]);
 				exchanged = true;
+
+			}else if(items_[i].second == items_[i+1].second){
+
+				if(items_[i].first > items_[i+1].first){
+						//if both items has equal usage, exchange on alpha basis
+					swapItems(items_[i], items_[i+1]);
+					exchanged = true;
+				}
 			}
 		}
 	}

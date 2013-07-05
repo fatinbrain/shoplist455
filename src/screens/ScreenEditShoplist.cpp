@@ -19,7 +19,7 @@ ScreenEditShoplist::~ScreenEditShoplist() {
 
 
 void ScreenEditShoplist::hide() {
-	Environment::getEnvironment().removeKeyListener(this);
+//	Environment::getEnvironment().removeKeyListener(this);
 
 	if(parent_){
 		parent_->show();
@@ -73,14 +73,18 @@ void ScreenEditShoplist::createUI() {
 }
 
 void ScreenEditShoplist::buttonClicked(Widget* button) {
-	Environment::getEnvironment().removeKeyListener(this);
+//	Environment::getEnvironment().removeKeyListener(this);
 
 	if(button == btnAccept){
-		parent_->show();
+		if(parent_){
+			parent_->show();
+		}
 		writeActivationShoplistDataToDevice();
 
 	}else if(button == btnDecline){
-		parent_->show();
+		if(parent_){
+			parent_->show();
+		}
 
 	}else if(button == btnPopulateShoplist){
 		if(!screenPopulateShoplist){
@@ -89,7 +93,7 @@ void ScreenEditShoplist::buttonClicked(Widget* button) {
 		}
 
 		screenPopulateShoplist->setShoplist(shoplist_);
-		screenPopulateShoplist->show();
+		screenPopulateShoplist->activate();
 	}
 }
 
@@ -165,7 +169,7 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 				screenShoplistExport = new ScreenShoplistExport(this);
 			}
 			screenShoplistExport->setText(shoplist_.toString());
-			screenShoplistExport->show();
+			screenShoplistExport->activate();
 			break;
 
 		case 2:
@@ -173,7 +177,7 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 				screenShoplistImport = new ScreenShoplistImport(this);
 			}
 			screenShoplistImport->setCallback(Shoplist455::callbacker);
-			screenShoplistImport->show();
+			screenShoplistImport->activate();
 			break;
 
 		default:
@@ -190,8 +194,8 @@ void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
 		int nativeCode) {
 	if (MAK_BACK == keyCode)
 	{
-		if(parent_){
-			parent_->show();
+		if(this->isShown()){
+			hide();
 		}
 	}
 }

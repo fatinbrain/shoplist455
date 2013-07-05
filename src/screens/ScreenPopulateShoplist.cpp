@@ -5,14 +5,6 @@ using Shoplist455::Dict;
 ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent):
 	parent_(parent){
 
-	//dbg
-//	char x[128];
-//	int sz = maFontGetCount();
-//
-//	for (int i = 0; i < sz; i++) {
-//		maFontGetName(i, x, 128);
-//	}
-
 	callbacker = NULL;
 
 	createUI();
@@ -23,6 +15,11 @@ ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent):
 }
 
 ScreenPopulateShoplist::~ScreenPopulateShoplist() {
+	Environment::getEnvironment().removeKeyListener(this);
+	btnAccept->removeButtonListener(this);
+	btnAddItem->removeButtonListener(this);
+	btnClearFilter->removeButtonListener(this);
+	btnDecline->removeButtonListener(this);
 }
 
 void ScreenPopulateShoplist::hide() {
@@ -126,6 +123,8 @@ void ScreenPopulateShoplist::writeDict() {
 }
 
 void ScreenPopulateShoplist::renderDict() {
+	lvDict->setEnabled(false);
+
 	dUsed_.clear();
 	dUnused_.clear();
 
@@ -148,8 +147,8 @@ void ScreenPopulateShoplist::renderDict() {
 
 
 		//render used items
+	lvsUsed->setEnabled(false);
 	lvsUsed->setVisible(dUsed_.count() > 0);
-	lvsUsed->setVisible(false);
 	while(lvsUsed->getChild(0)){
 		lvsUsed->removeItem(0);
 	}
@@ -171,7 +170,7 @@ void ScreenPopulateShoplist::renderDict() {
 		Label* lbUsage = new Label();
 		lbUsage->setText(usage);
 		lbUsage->setWidth(Styler::normalize(40));
-		lbUsage->setFont(maFontLoadWithName(Styler::fnClockopia.c_str(), 40));
+		//lbUsage->setFont(maFontLoadWithName(Styler::fnClockopia.c_str(), 40));
 		lbUsage->setFontSize(Styler::szf18);
 		lbUsage->setBackgroundColor(0x5555aa);
 
@@ -182,8 +181,10 @@ void ScreenPopulateShoplist::renderDict() {
 
 		lvsUsed->addItem(lvi);
 	}
+	lvsUsed->setEnabled(true);
 
 		//render unused items
+	lvsUnused->setEnabled(false);
 	lvsUnused->setVisible(dUnused_.count() > 0);
 	while(lvsUnused->getChild(0)){
 		lvsUnused->removeItem(0);
@@ -195,6 +196,9 @@ void ScreenPopulateShoplist::renderDict() {
 		lvi->setFontSize(Styler::szf18);
 		lvsUnused->addItem(lvi);
 	}
+	lvsUnused->setEnabled(true);
+
+	lvDict->setEnabled(true);
 }
 
 void ScreenPopulateShoplist::buttonClicked(Widget* button) {
@@ -298,6 +302,19 @@ void ScreenPopulateShoplist::resetWorkingDict() {
 	dictWork_ = dictOrig_;
 }
 
+void ScreenPopulateShoplist::activate() {
+	Environment::getEnvironment().addKeyListener(this);
+	this->show();
+}
+
+void ScreenPopulateShoplist::keyPressEvent(int keyCode, int nativeCode) {
+	if(MAK_BACK == keyCode){
+		if(this->isShown()){
+			hide();
+		}
+	}
+}
+
 void ScreenPopulateShoplist::segmentedListViewItemClicked(ListView* listView,
 		int sectionIndex, int itemIndex) {
 
@@ -306,11 +323,16 @@ void ScreenPopulateShoplist::segmentedListViewItemClicked(ListView* listView,
 		itemName = dUsed_.getItem(itemIndex).first;
 		dictOrig_.increaseUsageByName(itemName);
 		shoplist_.add(itemName);
+		lvsUsed->removeItem(itemIndex);
+		dUsed_.remove(itemIndex);
 
 	}else{
 		itemName = dUnused_.getItem(itemIndex).first;
 		dictOrig_.increaseUsageByName(itemName);
-		shoplist_.add(dUnused_.getItem(itemIndex).first);
+		shoplist_.add(itemName);
+		lvsUnused->removeItem(itemIndex);
+		dUnused_.remove(itemIndex);
+
 	}
-	renderDict();
+	//renderDict();
 }

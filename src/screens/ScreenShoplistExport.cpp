@@ -5,6 +5,8 @@ ScreenShoplistExport::ScreenShoplistExport(Screen* parent):parent_(parent) {
 }
 
 ScreenShoplistExport::~ScreenShoplistExport() {
+	Environment::getEnvironment().removeKeyListener(this);
+	btnAccept->removeButtonListener(this);
 }
 
 
@@ -50,4 +52,17 @@ void ScreenShoplistExport::setText(const String textToSet) {
 void ScreenShoplistExport::buttonClicked(Widget* button) {
 	ebShoplistText->setText("");
 	parent_->show();
+}
+
+void ScreenShoplistExport::activate() {
+	Environment::getEnvironment().addKeyListener(this);
+	this->show();
+}
+
+void ScreenShoplistExport::keyPressEvent(int keyCode, int nativeCode) {
+	if(MAK_BACK == keyCode){
+		if(this->isShown()){
+			hide();
+		}
+	}
 }

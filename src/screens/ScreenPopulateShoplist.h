@@ -23,13 +23,15 @@ class ScreenPopulateShoplist: public Screen,
 		public ButtonListener,
 		public ScreenListener,
 		public EditBoxListener,
-		public ListViewListener
+		public ListViewListener,
+		public KeyListener
 {
 public:
 	ScreenPopulateShoplist(Screen* parent = NULL);
 	~ScreenPopulateShoplist();
 
 	void hide();
+	void activate();
 	void setShoplist(Shoplist455::Shoplist shoplist);
 	void setCallback(void(*callback)(Shoplist455::Shoplist shoplist));
 
@@ -74,6 +76,7 @@ private:
 	virtual void buttonClicked(Widget* button);
 	virtual void optionsMenuItemSelected(Screen* screen, int index);
 	virtual void editBoxReturn(EditBox* editBox);
+	virtual void keyPressEvent(int keyCode, int nativeCode);
 	virtual void editBoxTextChanged(
 	            EditBox* editBox,
 	            const MAUtil::String& text);
@@ -82,7 +85,6 @@ private:
 		ListView* listView,
 		int sectionIndex,
 		int itemIndex);
-
 };
 
 #endif /* SCREENPOPULATESHOPLIST_H_ */
