@@ -311,6 +311,11 @@ void ScreenPopulateShoplist::keyPressEvent(int keyCode, int nativeCode) {
 }
 
 void ScreenPopulateShoplist::actAcceptList() {
+    writeDict();
+
+    if(callbacker){
+        callbacker(shoplist_);
+    }
 }
 
 void ScreenPopulateShoplist::segmentedListViewItemClicked(ListView* listView,
