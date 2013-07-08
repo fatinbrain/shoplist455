@@ -39,8 +39,6 @@ private:
     Screen* parent_;
     Shoplist455::Dict dictWork_;
     Shoplist455::Dict dictOrig_;
-    Shoplist455::Dict dUsed_;
-    Shoplist455::Dict dUnused_;
     Shoplist455::Shoplist shoplist_;
 
     void (*callbacker)(Shoplist455::Shoplist);
@@ -78,9 +76,7 @@ private:
     virtual void keyPressEvent(int keyCode, int nativeCode);
     virtual void editBoxTextChanged(EditBox* editBox,
             const MAUtil::String& text);
-
-    virtual void segmentedListViewItemClicked(ListView* listView,
-            int sectionIndex, int itemIndex);
+    virtual void listViewItemClicked(ListView* listView, int index);
 };
 
 #endif /* SCREENPOPULATESHOPLIST_H_ */
