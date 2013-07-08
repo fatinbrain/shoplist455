@@ -12,7 +12,6 @@ using namespace MAUtil;
 Vector<String> splitString(const String s, const char splitter);
 String simplifyString(const String s);
 
-
 #endif /* TOOLS_H_ */
 
 /////////////////////////

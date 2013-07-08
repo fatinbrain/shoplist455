@@ -25,91 +25,91 @@ String Styler::fnClockopia = "Clockopia";
 MAHandle Styler::fontClockopia = 0;
 
 Styler::Styler() {
-	calcConsts();
-	fontInit();
+    calcConsts();
+    fontInit();
 }
 
 Styler::~Styler() {
 }
 
 void Styler::calcConsts() {
-	MAExtent scrSz = maGetScrSize();
-	double scrX = EXTENT_X(scrSz);
-	double scrY = EXTENT_Y(scrSz);
-	double diagonal = (sqrt(scrX * scrX + scrY * scrY));
-	double scaleFactor = sqrt(diagonal / szNativeDiagonal);
-	scale = scaleFactor;
+    MAExtent scrSz = maGetScrSize();
+    double scrX = EXTENT_X(scrSz);
+    double scrY = EXTENT_Y(scrSz);
+    double diagonal = (sqrt(scrX * scrX + scrY * scrY));
+    double scaleFactor = sqrt(diagonal / szNativeDiagonal);
+    scale = scaleFactor;
 
-	szPaddingNormal = static_cast<int>(scaleFactor * szPaddingNormal);
-	szfButtonBig = static_cast<int>(scaleFactor * szfButtonBig);
-	szfTopPanelButton = static_cast<int>(scaleFactor * szfTopPanelButton);
-	szfTopPanelLabel = static_cast<int>(scaleFactor * szfTopPanelButton);
-	szf16 = static_cast<int>(scaleFactor * szf16);
-	szf18 = static_cast<int>(scaleFactor * szf18);
-	szf20 = static_cast<int>(scaleFactor * szf20);
-	szf28 = static_cast<int>(scaleFactor * szf28);
+    szPaddingNormal = static_cast<int>(scaleFactor * szPaddingNormal);
+    szfButtonBig = static_cast<int>(scaleFactor * szfButtonBig);
+    szfTopPanelButton = static_cast<int>(scaleFactor * szfTopPanelButton);
+    szfTopPanelLabel = static_cast<int>(scaleFactor * szfTopPanelButton);
+    szf16 = static_cast<int>(scaleFactor * szf16);
+    szf18 = static_cast<int>(scaleFactor * szf18);
+    szf20 = static_cast<int>(scaleFactor * szf20);
+    szf28 = static_cast<int>(scaleFactor * szf28);
 }
 
-void Styler::setLayoutPaddings4(Layout* layout, const int top, const int right, const int bottom,
-		const int left) {
-	if(layout == NULL){
-		return;
-	}
+void Styler::setLayoutPaddings4(Layout* layout, const int top, const int right,
+        const int bottom, const int left) {
+    if (layout == NULL) {
+        return;
+    }
 
-	if(top >= 0){
-		layout->setPaddingTop(top);
-	}
-	if(right >= 0){
-		layout->setPaddingRight(right);
-	}
-	if(bottom >= 0){
-		layout->setPaddingBottom(bottom);
-	}
-	if(left >= 0){
-		layout->setPaddingLeft(left);
-	}
+    if (top >= 0) {
+        layout->setPaddingTop(top);
+    }
+    if (right >= 0) {
+        layout->setPaddingRight(right);
+    }
+    if (bottom >= 0) {
+        layout->setPaddingBottom(bottom);
+    }
+    if (left >= 0) {
+        layout->setPaddingLeft(left);
+    }
 }
 
 void Styler::setlayoutPaddings2(Layout* layout, const int top_bottom,
-		const int left_right) {
-	if(layout == NULL){
-		return;
-	}
+        const int left_right) {
+    if (layout == NULL) {
+        return;
+    }
 
-	if(top_bottom >= 0){
-		layout->setPaddingTop(top_bottom);
-		layout->setPaddingBottom(top_bottom);
-	}
-	if(left_right >= 0){
-		layout->setPaddingRight(left_right);
-		layout->setPaddingLeft(left_right);
-	}
+    if (top_bottom >= 0) {
+        layout->setPaddingTop(top_bottom);
+        layout->setPaddingBottom(top_bottom);
+    }
+    if (left_right >= 0) {
+        layout->setPaddingRight(left_right);
+        layout->setPaddingLeft(left_right);
+    }
 }
 
 void Styler::setlayoutPaddings1(Layout* layout, const int all) {
-	if(layout == NULL){
-		return;
-	}
+    if (layout == NULL) {
+        return;
+    }
 
-	if(all >= 0){
-		layout->setPaddingTop(all);
-		layout->setPaddingBottom(all);
-		layout->setPaddingRight(all);
-		layout->setPaddingLeft(all);
-	}
+    if (all >= 0) {
+        layout->setPaddingTop(all);
+        layout->setPaddingBottom(all);
+        layout->setPaddingRight(all);
+        layout->setPaddingLeft(all);
+    }
 }
 
 int Styler::normalize(const int sz) {
-	return static_cast<int>(scale * sz);
+    return static_cast<int>(scale * sz);
 }
 
 void Styler::fontInit() {
-	char x[128];
-	int sz = maFontGetCount();
+    char x[128];
+    int sz = maFontGetCount();
 
-	for (int i = 0; i < sz; i++) {
-		maFontGetName(i, x, 128);
-	}
+    for (int i = 0; i < sz; i++) {
+        maFontGetName(i, x, 128);
+    }
 
-	fontClockopia = maFontLoadWithName(Styler::fnClockopia.c_str(), 40);
+    fontClockopia = maFontLoadWithName(Styler::fnClockopia.c_str(), 40);
 }

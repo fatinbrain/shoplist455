@@ -9,27 +9,27 @@
 
 using namespace MAUtil;
 
-namespace Shoplist455{
+namespace Shoplist455 {
 
 const int MIN_SHOPLIST_LENGHT = 3;
 
-class Shoplist{
+class Shoplist {
 
 public:
-	Shoplist();
-	~Shoplist();
+    Shoplist();
+    ~Shoplist();
 
-	void removeAt(const int index);
-	void add(const String item);
-	String getItem(const int index) const;
-	int getSize()const;
-	void clear();
-	String toString() const;
-	void parse(const String strToParse);
+    void removeAt(const int index);
+    void add(const String item);
+    String getItem(const int index) const;
+    int size() const;
+    void clear();
+    String toString() const;
+    void parse(const String strToParse);
 
 //	static Shoplist empty;
 private:
-	Vector<String> items_;
+    Vector<String> items_;
 };
 
 }

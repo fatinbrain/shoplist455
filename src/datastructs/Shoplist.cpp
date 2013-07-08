@@ -5,7 +5,6 @@
 using Shoplist455::Shoplist;
 
 
-
 Shoplist::Shoplist(){
 }
 
@@ -73,6 +72,6 @@ String Shoplist::getItem(const int index)const{
 }
 
 
-int Shoplist::getSize() const {
+int Shoplist::size() const {
 	return items_.size();
 }

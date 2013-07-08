@@ -29,7 +29,7 @@ public:
 
 	void addItem(const String itemName, const int itemUsage = 0);
 	void addItem(const p_si item);
-	const int count() const;
+    const int size() const;
 	void clear();
 	void remove(const int index);
 	void remove(const String itemName);

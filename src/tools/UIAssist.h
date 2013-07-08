@@ -5,12 +5,8 @@
 
 #include "Styler.h"
 
-void setupTopPanel(VerticalLayout* lMain,
-		HorizontalLayout* lTop,
-		Button* btnAccept,
-		Label* lbMain,
-		Button* btnDecline,
-		VerticalLayout* lContent);
-
+void setupTopPanel(VerticalLayout* lMain, HorizontalLayout* lTop,
+        Button* btnAccept, Label* lbMain, Button* btnDecline,
+        VerticalLayout* lContent);
 
 #endif /* UIASSIST_H_ */
