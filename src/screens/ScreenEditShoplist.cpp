@@ -17,8 +17,6 @@ ScreenEditShoplist::~ScreenEditShoplist() {
 }
 
 void ScreenEditShoplist::hide() {
-//	Environment::getEnvironment().removeKeyListener(this);
-
     if (parent_) {
         parent_->show();
     }
@@ -71,8 +69,6 @@ void ScreenEditShoplist::createUI() {
 }
 
 void ScreenEditShoplist::buttonClicked(Widget* button) {
-//	Environment::getEnvironment().removeKeyListener(this);
-
     if (button == btnAccept) {
         if (parent_) {
             parent_->show();
