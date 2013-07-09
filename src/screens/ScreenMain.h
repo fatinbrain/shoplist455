@@ -11,7 +11,7 @@
 using namespace NativeUI;
 using namespace MAUtil;
 
-#define PROG_VER "a06"
+#define PROG_VER "a10"
 
 namespace Shoplist455 {
 
@@ -22,7 +22,7 @@ public:
 
 private:
     Moblet* parent_;
-    ScreenEditShoplist* scrEditShoplist;
+    ScreenEditShoplist* screenEditShoplist;
     ScreenInShop* screenInShop;
 
     VerticalLayout* lMain;

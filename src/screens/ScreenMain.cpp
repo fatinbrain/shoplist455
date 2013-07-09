@@ -8,7 +8,9 @@ using namespace Shoplist455;
 ScreenMain* transmitter;
 
 ScreenMain::ScreenMain(Moblet* parent) :
-        parent_(parent) {
+        parent_(parent),
+        screenEditShoplist(NULL),
+        screenInShop(NULL){
 
     Styler s;
 
@@ -82,12 +84,12 @@ void ScreenMain::buttonClicked(Widget* button) {
             s.parse(strListAcitve);
         }
 
-        if (scrEditShoplist == NULL) {
-            scrEditShoplist = new ScreenEditShoplist(this);
+        if (screenEditShoplist == NULL) {
+            screenEditShoplist = new ScreenEditShoplist(this);
         }
 
-        scrEditShoplist->setShoplist(s);
-        scrEditShoplist->activate();
+        screenEditShoplist->setShoplist(s);
+        screenEditShoplist->activate();
 
     } else if (button == btnInShop) {
         if (screenInShop == NULL) {

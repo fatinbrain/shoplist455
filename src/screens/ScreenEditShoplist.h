@@ -65,6 +65,7 @@ private:
     virtual void keyPressEvent(int keyCode, int nativeCode);
 
     friend void callbacker(Shoplist455::Shoplist);
+    friend void callbackImport(Shoplist455::Shoplist);
 };
 
 }

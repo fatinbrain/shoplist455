@@ -13,6 +13,7 @@ ScreenShoplistImport::~ScreenShoplistImport() {
 }
 
 void ScreenShoplistImport::hide() {
+    Environment::getEnvironment().removeKeyListener(this);
     if (parent_) {
         parent_->show();
     }
@@ -22,7 +23,7 @@ void ScreenShoplistImport::createUI() {
     lMain = new VerticalLayout();
     HorizontalLayout* lTop = new HorizontalLayout();
     btnAccept = new Button();
-    btnAccept->setEnabled(false);
+    btnAccept->setVisible(false);
     btnAccept->addButtonListener(this);
     lbMain = new Label("Shoplist import");
     btnDecline = new Button();
@@ -47,6 +48,8 @@ void ScreenShoplistImport::createUI() {
 }
 
 void ScreenShoplistImport::buttonClicked(Widget* button) {
+    Environment::getEnvironment().removeKeyListener(this);
+
     if (button == btnAccept) {
         actAccept();
         parent_->show();
@@ -60,10 +63,10 @@ void ScreenShoplistImport::buttonClicked(Widget* button) {
 void ScreenShoplistImport::editBoxTextChanged(EditBox* editBox,
         const MAUtil::String& text) {
     if (ebParseFrom->getText().length() > 0) {
-        btnAccept->setEnabled(true);
+        btnAccept->setVisible(true);
 
     } else {
-        btnAccept->setEnabled(false);
+        btnAccept->setVisible(false);
     }
 }
 
@@ -85,10 +88,16 @@ void ScreenShoplistImport::editBoxReturn(EditBox* editBox) {
 }
 
 void ScreenShoplistImport::actParse() {
-    shoplist_.parse(ebParseFrom->getText());
+    if(ebParseFrom->getText().length() > 0){
+        shoplist_.parse(ebParseFrom->getText());
+    }
 }
 
 void ScreenShoplistImport::actAccept() {
+    if(shoplist_.size() == 0){
+        return;
+    }
+
     if (callbackDone_) {
         callbackDone_(shoplist_);
     } else {

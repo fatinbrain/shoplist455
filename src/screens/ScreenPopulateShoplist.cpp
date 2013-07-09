@@ -275,8 +275,7 @@ void ScreenPopulateShoplist::actAcceptList() {
 
 void ScreenPopulateShoplist::listViewItemClicked(ListView* listView,
         int index) {
-    String itemName = "";
-    itemName = dictWork_.getItem(index).first;
+    String itemName = dictWork_.getItem(index).first;
     dictOrig_.increaseUsageByName(itemName);
     shoplist_.add(itemName);
     lvDict->removeChild(lvDict->getChild(index));

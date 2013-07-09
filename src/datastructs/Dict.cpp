@@ -169,8 +169,9 @@ void Shoplist455::Dict::filtrateByItem(const String filterString) {
 
 void Shoplist455::Dict::adsorbShoplist(const Shoplist455::Shoplist shoplist) {
     int shoplistSize = shoplist.size();
-    if (!shoplistSize)
+    if (!shoplistSize){
         return;
+	}
 
     bool newItem;
 

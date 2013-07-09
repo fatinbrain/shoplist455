@@ -5,7 +5,10 @@ using namespace Shoplist455;
 ScreenEditShoplist* transScreenEditShoplist;
 
 ScreenEditShoplist::ScreenEditShoplist(Screen* parent) :
-        parent_(parent) {
+        parent_(parent),
+        screenShoplistExport(NULL),
+        screenShoplistImport(NULL),
+        screenPopulateShoplist(NULL){
 
     transScreenEditShoplist = this;
 
@@ -161,10 +164,9 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 
     case 2:
             //import
-            maMessageBox("dbg", "invoke import");
         if (!screenShoplistImport) {
             screenShoplistImport = new ScreenShoplistImport(this);
-            screenShoplistImport->setCallback(Shoplist455::callbacker);
+            screenShoplistImport->setCallback(Shoplist455::callbackImport);
         }
         screenShoplistImport->activate();
         break;
@@ -191,6 +193,11 @@ void Shoplist455::ScreenEditShoplist::keyPressEvent(int keyCode,
 }
 
 void Shoplist455::callbacker(Shoplist455::Shoplist shoplist) {
+    transScreenEditShoplist->shoplist_ = shoplist;
+    transScreenEditShoplist->renderShoplist();
+}
+
+void Shoplist455::callbackImport(Shoplist455::Shoplist shoplist){
     transScreenEditShoplist->shoplist_ = shoplist;
     transScreenEditShoplist->renderShoplist();
 }

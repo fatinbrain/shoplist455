@@ -1,6 +1,7 @@
 #include "ScreenShoplistExport.h"
 
-ScreenShoplistExport::ScreenShoplistExport(Screen* parent):parent_(parent) {
+ScreenShoplistExport::ScreenShoplistExport(Screen* parent):
+    parent_(parent) {
 	createUI();
 }
 
