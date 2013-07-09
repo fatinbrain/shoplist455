@@ -10,7 +10,6 @@ ScreenShoplistImport::~ScreenShoplistImport() {
     Environment::getEnvironment().removeKeyListener(this);
     btnAccept->removeButtonListener(this);
     btnDecline->removeButtonListener(this);
-    btnParse->removeButtonListener(this);
 }
 
 void ScreenShoplistImport::hide() {
@@ -23,7 +22,7 @@ void ScreenShoplistImport::createUI() {
     lMain = new VerticalLayout();
     HorizontalLayout* lTop = new HorizontalLayout();
     btnAccept = new Button();
-    btnAccept->setVisible(false);
+    btnAccept->setEnabled(false);
     btnAccept->addButtonListener(this);
     lbMain = new Label("Shoplist import");
     btnDecline = new Button();
@@ -32,28 +31,15 @@ void ScreenShoplistImport::createUI() {
 
     setupTopPanel(lMain, lTop, btnAccept, lbMain, btnDecline, lContent);
 
-    ebParseFrom = new EditBox();
-    ebParseFrom->fillSpaceHorizontally();
-    ebParseFrom->addEditBoxListener(this);
-    lContent->addChild(ebParseFrom);
-
-    btnParse = new Button();
-    btnParse->setText("Parse list");
-    btnParse->fillSpaceHorizontally();
-    btnParse->setFontSize(Styler::szf18);
-    btnParse->setEnabled(false);
-    btnParse->addButtonListener(this);
-    lContent->addChild(btnParse);
-
-    lbtParse = new Label("\n1.paste\n2.press parse\n3.press accept button\n\n");
+    lbtParse = new Label("\n1.paste\n2.press accept button\n");
     lbtParse->fillSpaceHorizontally();
     lbtParse->setFontSize(Styler::szf20);
     lContent->addChild(lbtParse);
 
-    lbParsedShoplist = new Label("NOTPARSED");
-    lbParsedShoplist->fillSpaceHorizontally();
-    lbParsedShoplist->setFontSize(Styler::szf18);
-    lContent->addChild(lbParsedShoplist);
+    ebParseFrom = new EditBox();
+    ebParseFrom->fillSpaceHorizontally();
+    ebParseFrom->addEditBoxListener(this);
+    lContent->addChild(ebParseFrom);
 
     lMain->addChild(lContent);
 
@@ -62,34 +48,22 @@ void ScreenShoplistImport::createUI() {
 
 void ScreenShoplistImport::buttonClicked(Widget* button) {
     if (button == btnAccept) {
-        if (callbackDone_) {
-            callbackDone_(shoplist_);
-        } else {
-            maMessageBox("Warning",
-                    "[screenShoplistImport]\nCallback function does not set.");
-        }
-        ebParseFrom->setText("");
-        shoplist_.clear();
+        actAccept();
         parent_->show();
 
     } else if (button == btnDecline) {
         parent_->show();
 
-    } else if (button == btnParse) {
-        btnAccept->setVisible(true);
-        ebParseFrom->hideKeyboard();
-        shoplist_.parse(ebParseFrom->getText());
-        renderShoplist();
     }
 }
 
 void ScreenShoplistImport::editBoxTextChanged(EditBox* editBox,
         const MAUtil::String& text) {
     if (ebParseFrom->getText().length() > 0) {
-        btnParse->setEnabled(true);
+        btnAccept->setEnabled(true);
 
     } else {
-        btnParse->setEnabled(false);
+        btnAccept->setEnabled(false);
     }
 }
 
@@ -100,20 +74,35 @@ void ScreenShoplistImport::setCallback(
     }
 }
 
-void ScreenShoplistImport::renderShoplist() {
-    lbParsedShoplist->setText(shoplist_.toString());
-}
-
 void ScreenShoplistImport::activate() {
     Environment::getEnvironment().addKeyListener(this);
     this->show();
 }
 
 void ScreenShoplistImport::editBoxReturn(EditBox* editBox) {
+    actParse();
+    actAccept();
+}
+
+void ScreenShoplistImport::actParse() {
+    shoplist_.parse(ebParseFrom->getText());
+}
+
+void ScreenShoplistImport::actAccept() {
+    if (callbackDone_) {
+        callbackDone_(shoplist_);
+    } else {
+        maMessageBox("Warning",
+                "[screenShoplistImport]\nCallback function does not set.");
+    }
+    ebParseFrom->setText("");
+    shoplist_.clear();
 }
 
 void ScreenShoplistImport::keyPressEvent(int keyCode, int nativeCode) {
     if (MAK_BACK == keyCode) {
+        actParse();
+        actAccept();
         if (this->isShown()) {
             hide();
         }

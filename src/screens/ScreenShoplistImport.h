@@ -35,13 +35,11 @@ private:
     Button* btnDecline;
 
     EditBox* ebParseFrom;
-    Button* btnParse;
     Label* lbtParse;
-    Label* lbParsedShoplist;
 
+    void actParse();
+    void actAccept();
     void createUI();
-//	void parseShoplist(String strToParse);
-    void renderShoplist();
 
     virtual void buttonClicked(Widget* button);
     virtual void editBoxTextChanged(EditBox* editBox,

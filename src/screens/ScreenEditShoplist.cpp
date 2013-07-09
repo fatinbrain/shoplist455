@@ -161,8 +161,8 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
 
     case 2:
             //import
+            maMessageBox("dbg", "invoke import");
         if (!screenShoplistImport) {
-                maMessageBox("dbg", "shoplistimport created");
             screenShoplistImport = new ScreenShoplistImport(this);
             screenShoplistImport->setCallback(Shoplist455::callbacker);
         }
