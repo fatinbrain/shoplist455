@@ -71,7 +71,7 @@ void ScreenPopulateShoplist::createUI() {
     lFilterCtrls->addChild(btnAddItem);
 
     btnClearFilter = new Button();
-    btnClearFilter->setText("  X  ");
+    btnClearFilter->setText("  x  ");
     btnClearFilter->addButtonListener(this);
     btnClearFilter->setFontSize(Styler::szf18);
     lFilterCtrls->addChild(btnClearFilter);

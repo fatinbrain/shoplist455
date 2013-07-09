@@ -143,12 +143,15 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
         int index) {
     switch (index) {
     case 0:
+            //clear current shoplist
         shoplist_.clear();
+
         renderShoplist();
         updateShoplistInfo();
         break;
 
     case 1:
+            //export
         if (!screenShoplistExport) {
             screenShoplistExport = new ScreenShoplistExport(this);
         }
@@ -157,10 +160,12 @@ void Shoplist455::ScreenEditShoplist::optionsMenuItemSelected(Screen* screen,
         break;
 
     case 2:
+            //import
         if (!screenShoplistImport) {
+                maMessageBox("dbg", "shoplistimport created");
             screenShoplistImport = new ScreenShoplistImport(this);
+            screenShoplistImport->setCallback(Shoplist455::callbacker);
         }
-        screenShoplistImport->setCallback(Shoplist455::callbacker);
         screenShoplistImport->activate();
         break;
 
