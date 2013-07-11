@@ -186,6 +186,7 @@ void Shoplist455::Dict::adsorbShoplist(const Shoplist455::Shoplist shoplist) {
 
         if (newItem) {
             items_.add(p_si(shoplist.getItem(i), 1));
+//            maMessageBox("new item", shoplist.getItem(i).c_str() );
         }
     }
 }

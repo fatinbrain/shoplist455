@@ -18,6 +18,7 @@ using Shoplist455::Dict;
 
 const String DEFAULT_DICT =
         "кефир,д кефир,молоко,д молоко,сметана,сыр,творог,масло,маргарин,подсолнечное,мясо,фарш,кура,рыба,лук,лук репчатый,капуста,огурцы,морковь,горошек,петрушка,кабак,картошка,салат,помидор,чеснок,бананы,яблоки,лимон,хлеб,батон,мука,сдоба,гречка,овес,рис,манка,перловка,пшено,д яблоки,д капуста,чай,шоколад";
+
 const String STORAGE_DICT = "sl455dict";
 
 class ScreenPopulateShoplist: public Screen,
@@ -36,6 +37,8 @@ public:
     void setCallback(void (*callback)(Shoplist455::Shoplist shoplist));
 
 private:
+    bool isRemoveMode;
+
     Screen* parent_;
     Shoplist455::Dict dictWork_;
     Shoplist455::Dict dictOrig_;
@@ -47,6 +50,7 @@ private:
     Label* lbMain;
     Label* lbDbg;
 
+    HorizontalLayout* lTop;
     VerticalLayout* lFilter;
     HorizontalLayout* lEdit;
     Button* btnAccept;
@@ -68,6 +72,7 @@ private:
     void writeDict();
     void renderDict();
     void colorizeFilter();
+    void updateMode();
     void buttonAvailbilityCheck();
 
     virtual void buttonClicked(Widget* button);

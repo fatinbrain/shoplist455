@@ -3,7 +3,7 @@
 using Shoplist455::Dict;
 
 ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent) :
-        parent_(parent) {
+        isRemoveMode(false), parent_(parent) {
 
     callbacker = NULL;
 
@@ -11,6 +11,7 @@ ScreenPopulateShoplist::ScreenPopulateShoplist(Screen* parent) :
     readDict();
     renderDict();
     colorizeFilter();
+    updateMode();
     buttonAvailbilityCheck();
 }
 
@@ -22,18 +23,21 @@ ScreenPopulateShoplist::~ScreenPopulateShoplist() {
     btnDecline->removeButtonListener(this);
 }
 
+
 void ScreenPopulateShoplist::hide() {
     if (parent_) {
         parent_->show();
     }
 }
 
+
 void ScreenPopulateShoplist::createUI() {
     addOptionsMenuItem("Drop stat");
+    addOptionsMenuItem("Remove item");
     addScreenListener(this);
 
     lMain = new VerticalLayout();
-    HorizontalLayout* lTop = new HorizontalLayout();
+    lTop = new HorizontalLayout();
     btnAccept = new Button();
     btnAccept->addButtonListener(this);
     lbMain = new Label("Add items");
@@ -98,6 +102,7 @@ void ScreenPopulateShoplist::readDict() {
 
 void ScreenPopulateShoplist::writeDict() {
     StorageWorks sw(STORAGE_DICT);
+    sw.rm();
     String writeBuff = dictOrig_.toString();
     writeBuff += "|";
     sw.write(writeBuff);
@@ -111,14 +116,14 @@ void ScreenPopulateShoplist::renderDict() {
     dictWork_.filtrateByItem(ebFilter->getText());
     dictWork_.sordDictByAlpha();
 
-    while(lvDict->getChild(0)){
+    while (lvDict->getChild(0)) {
         lvDict->removeChild(lvDict->getChild(0));
     }
 
     String name = "";
     String usage = "";
 
-    for(int i = 0; i < dictWork_.size(); i++){
+    for (int i = 0; i < dictWork_.size(); i++) {
         lvi = new ListViewItem();
 
         name = dictWork_.getItem(i).first;
@@ -135,7 +140,7 @@ void ScreenPopulateShoplist::renderDict() {
 
         lItem->addChild(lbName);
 
-        if(dictWork_.getItem(i).second > 0){
+        if (dictWork_.getItem(i).second > 0) {
             Label* lbUsage = new Label();
             lbUsage->setText(usage);
             lbUsage->setWidth(Styler::normalize(40));
@@ -185,12 +190,17 @@ void ScreenPopulateShoplist::optionsMenuItemSelected(Screen* screen,
     switch (index) {
     case 0:
         //drop stat
-        dictWork_.dropStat();
+        dictOrig_.dropStat();
+        resetWorkingDict();
+        writeDict();
         renderDict();
         break;
     case 1:
-        //export dict
-
+        //remove item
+        isRemoveMode = true;
+        //lvDict->setBackgroundColor(0xaa5555);
+        updateMode();
+        break;
     case 2:
         //import dict
         maMessageBox("in future",
@@ -257,10 +267,15 @@ void ScreenPopulateShoplist::activate() {
 
 void ScreenPopulateShoplist::keyPressEvent(int keyCode, int nativeCode) {
     if (MAK_BACK == keyCode) {
-        actAcceptList();
+        if(!isRemoveMode){
+            actAcceptList();
 
-        if (this->isShown()) {
-            hide();
+            if (this->isShown()) {
+                hide();
+            }
+        }else{
+            isRemoveMode = false;
+            updateMode();
         }
     }
 }
@@ -268,16 +283,32 @@ void ScreenPopulateShoplist::keyPressEvent(int keyCode, int nativeCode) {
 void ScreenPopulateShoplist::actAcceptList() {
     writeDict();
 
-    if(callbacker){
+    if (callbacker) {
         callbacker(shoplist_);
     }
 }
 
+void ScreenPopulateShoplist::updateMode() {
+    lvDict->setBackgroundColor(isRemoveMode ? 0xaa5555 : 0x333333);
+    lTop->setVisible(!isRemoveMode);
+
+}
+
 void ScreenPopulateShoplist::listViewItemClicked(ListView* listView,
         int index) {
-    String itemName = dictWork_.getItem(index).first;
-    dictOrig_.increaseUsageByName(itemName);
-    shoplist_.add(itemName);
-    lvDict->removeChild(lvDict->getChild(index));
-    dictWork_.remove(index);
+    if (!isRemoveMode) {
+        String itemName = dictWork_.getItem(index).first;
+        dictOrig_.increaseUsageByName(itemName);
+        shoplist_.add(itemName);
+        lvDict->removeChild(lvDict->getChild(index));
+        dictWork_.remove(index);
+
+    } else {
+        isRemoveMode = false;
+        updateMode();
+        dictOrig_.remove(dictWork_.getItem(index).first);
+        writeDict();
+        resetWorkingDict();
+        renderDict();
+    }
 }
