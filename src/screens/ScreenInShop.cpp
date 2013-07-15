@@ -108,8 +108,6 @@ void ScreenInShop::removeDataFromDevice() {
 }
 
 void ScreenInShop::buttonClicked(Widget* button) {
-//	Environment::getEnvironment().removeKeyListener(this);
-
     if (button == btnAccept) {
         if (shoplistToBuy_.size() == 0) {
             readDataFromDevice();
@@ -166,9 +164,11 @@ void ScreenInShop::renderShoplist() {
         lbNum->setTextHorizontalAlignment(MAW_ALIGNMENT_LEFT);
         lbNum->setBackgroundColor(Styler::clListsLabelGray);
         lbNum->setFontSize(Styler::szf28);
+        lbNum->setWidth(Styler::normalize(40));
+        lbNum->setTextHorizontalAlignment(MAW_ALIGNMENT_CENTER);
         lItem->addChild(lbNum);
 
-        sBuff = "";
+        sBuff = " ";
         sBuff += shoplistToBuy_.getItem(i);
 
         Label* l = new Label(sBuff.c_str());
